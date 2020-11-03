@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_ddfree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsandsla <jsandsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 15:25:22 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/10/28 15:29:47 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/03 21:50:43 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/03 21:54:56 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isascii(int c)
+void			ft_ddfree(t_dd *dd)
 {
-	return (c >= 0 && c <= 0x7F);
+	size_t	i;
+
+	i = 0;
+	while (i < dd->len)
+	{
+		ft_dfree(&dd->ptr[i]);
+		i += 1;
+	}
+	ft_dafree(&dd->da);
+	dd->len = 0;
+	dd->ptr = 0;
 }

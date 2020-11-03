@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_dfree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsandsla <jsandsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 15:23:59 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/10/28 15:25:09 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/03 18:00:50 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/03 18:01:26 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalnum(int c)
+void			ft_dfree(t_d *d)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	if (d->ptr)
+		free(d->ptr);
+	d->len = 0;
+	d->max_len = 0;
+	d->ptr = 0;
 }

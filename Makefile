@@ -17,14 +17,11 @@ ft_strrchr.c\
 ft_strnstr.c\
 ft_strncmp.c\
 ft_atoi.c\
-ft_isalpha.c\
-ft_isdigit.c\
-ft_isalnum.c\
-ft_isascii.c\
-ft_isprint.c\
 ft_toupper.c\
 ft_tolower.c\
-ft_strnlen_bonus.c
+ft_strnlen.c\
+ft_is_powof2.c\
+ft_next_powof2.c
 OBJ=$(SRC:.c=.o)
 PART2_SRC=\
 ft_calloc.c\
@@ -51,12 +48,27 @@ ft_lstclear.c\
 ft_lstiter.c\
 ft_lstmap.c
 LIST_OBJ=$(LIST_SRC:.c=.o)
-LINE_SRC=\
-ft_lninit.c\
-ft_lnexpand.c\
-ft_lnappend.c\
-ft_lnfree.c
-LINE_OBJ=$(LINE_SRC:.c=.o)
+D_SRC=\
+ft_dinit.c\
+ft_dexpand.c\
+ft_dappend.c\
+ft_dappendc.c\
+ft_dfree.c\
+ft_dainit.c\
+ft_daappend.c\
+ft_daremove.c\
+ft_da.c\
+ft_dafree.c\
+ft_dsinit.c\
+ft_dsappend.c\
+ft_dsfree.c\
+ft_ddinit.c\
+ft_ddnewinit.c\
+ft_ddnew.c\
+ft_ddappend.c\
+ft_ddremove.c\
+ft_ddfree.c
+D_OBJ=$(D_SRC:.c=.o)
 
 all: $(NAME)
 
@@ -76,19 +88,19 @@ list_add: $(LIST_OBJ)
 	ar rc $(NAME) $?
 	touch list_add
 
-line: $(NAME) line_add
-line_add: $(LINE_OBJ)
+d: $(NAME) d_add
+d_add: $(D_OBJ)
 	ar rc $(NAME) $?
-	touch line_add
+	touch d_add
 
 clean:
 	rm -rf $(OBJ)
 	rm -rf $(PART2_OBJ)
 	rm -rf $(LIST_OBJ)
-	rm -rf $(LINE_OBJ)
+	rm -rf $(D_OBJ)
 	rm -rf part2_add
 	rm -rf list_add
-	rm -rf line_add
+	rm -rf d_add
 
 fclean: clean
 	rm -rf $(NAME)

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 16:09:08 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/03 23:03:59 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 
 # include <stdlib.h>
 
-# define E_SUCCESS 0
+# define E_OK 0
 # define E_UNKNOW -1
 # define E_MALLOC -2
+# define E_INVALID_PARAMETER -3
+# define E_OUT_OF_BOUNDS -4
+# define E_OUT_OF_MEMORY -5
 
 typedef int		t_err;
+
+typedef unsigned char	t_byte;
 
 typedef struct	s_list
 {
@@ -27,12 +32,35 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct	s_line
+typedef struct	s_d
 {
-	char	*ptr;
 	size_t	len;
 	size_t	max_len;
-}				t_line;
+	size_t	reserve_len;
+	t_byte	*ptr;
+}				t_d;
+
+typedef struct	s_da
+{
+	size_t	len;
+	size_t	sz;
+	void	*ptr;
+	t_d		d;
+}				t_da;
+
+typedef struct	s_ds
+{
+	size_t	len;
+	char	*ptr;
+	t_d		d;
+}				t_ds;
+
+typedef struct	s_dd
+{
+	size_t	len;
+	t_d		*ptr;
+	t_da	da;
+}				t_dd;
 
 /*
 ** make; dep: -;
@@ -52,14 +80,12 @@ char			*ft_strrchr(const char *s, int c);
 char			*ft_strnstr(const char *big, const char *lit, size_t len);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *nptr);
-int				ft_isalpha(int c);
-int				ft_isdigit(int c);
-int				ft_isalnum(int c);
-int				ft_isascii(int c);
-int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 size_t			ft_strnlen(const char *s, size_t n);
+
+size_t			ft_is_powof2(size_t val);
+size_t			ft_next_powof2(size_t val);
 
 /*
 ** make part2; dep: malloc, free, write;
@@ -92,18 +118,64 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 	void (*del)(void *));
 
 /*
-** make line; dep: malloc, free;
+** make d; dep: malloc, free;
 */
-t_err			ft_lninit(t_line *ln, char *str, size_t max_len);
-t_err			ft_lnexpand(t_line *ln, size_t required);
-t_err			ft_lnappend(t_line *ln, char *str, size_t n);
-void			ft_lnfree(t_line *ln);
+t_err			ft_dinit(t_d *d, t_byte *mem, size_t len);
+t_err			ft_dexpand(t_d *d, size_t required);
+t_err			ft_dappend(t_d *d, t_byte *mem, size_t len);
+t_err			ft_dappendc(t_d *d, t_byte *mem, t_byte c, size_t len);
+void			ft_dfree(t_d *d);
+
+t_err			ft_dainit(t_da *arr, size_t sz, void *elems, size_t count);
+t_err			ft_daappend(t_da *arr, void *elems, size_t count);
+t_err			ft_daremove(t_da *arr, size_t i);
+void			*ft_da(t_da *arr, size_t i);
+void			ft_dafree(t_da *arr);
+
+t_err			ft_dsinit(t_ds *str, char *mem, size_t max_len);
+t_err			ft_dsappend(t_ds *str, char *mem, size_t n);
+void			ft_dsfree(t_ds *str);
+
+t_err			ft_ddinit(t_dd *dd);
+t_err			ft_ddnewinit(t_dd *dd, t_d **ppd, t_byte *mem, size_t len);
+t_err			ft_ddnew(t_dd *dd, t_d **ppd);
+t_err			ft_ddappend(t_dd *dd, t_d *d);
+t_err			ft_ddremove(t_dd *dd, size_t i);
+void			ft_ddfree(t_dd *dd);
 
 /*
 ** inline;
 */
-# define FT_min(l, r) (l < r ? l : r)
-# define FT_max(l, r) (l > r ? l : r)
-# define FT_clamp(v, l, r) (ft_min(r, ft_max(v, l)))
+# define FT_MIN(l, r) (l < r ? l : r)
+# define FT_MAX(l, r) (l > r ? l : r)
+# define FT_CLAMP(v, l, r) FT_MIN(r, FT_MAX(v, l))
+
+/*
+** ctype
+*/
+unsigned char	g_ctype_char_info[256] = {
+	0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x20, 0x20, 0x20, 0x20, 0x20,
+	0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+	0x0, 0x0, 0x0, 0x30, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
+	0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x95, 0x95, 0x95, 0x95, 0x95, 0x95,
+	0x95, 0x95, 0x95, 0x95, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0xD3,
+	0xD3, 0xD3, 0xD3, 0xD3, 0xD3, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53,
+	0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53, 0x53,
+	0x53, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x9B, 0x9B, 0x9B, 0x9B, 0x9B,
+	0x9B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B,
+	0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x1B, 0x10, 0x10, 0x10,
+	0x10
+};
+
+# define IS_ALNUM(x) (g_ctype_char_info[x] & 1)
+# define IS_ALPHA(x) (g_ctype_char_info[x] & 2)
+# define IS_DIGIT(x) (g_ctype_char_info[x] & 4)
+# define IS_LOWER(x) (g_ctype_char_info[x] & 8)
+# define IS_PRINT(x) (g_ctype_char_info[x] & 16)
+# define IS_SPACE(x) (g_ctype_char_info[x] & 32)
+# define IS_UPPER(x) (g_ctype_char_info[x] & 64)
+# define IS_XDIGIT(x) (g_ctype_char_info[x] & 128)
+
+# define IS_ASCII(x) ((int)(char)(unsigned char)(x) > 0)
 
 #endif

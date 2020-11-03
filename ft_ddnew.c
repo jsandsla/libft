@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_ddnew.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsandsla <jsandsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 15:17:52 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/10/28 15:21:18 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/03 20:52:53 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/03 21:00:29 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalpha(int c)
+t_err			ft_ddnew(t_dd *dd, t_d **ppd)
 {
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+	t_err	error;
+
+	error = ft_ddnewinit(dd, ppd, 0, 0);
+	return (error);
 }
