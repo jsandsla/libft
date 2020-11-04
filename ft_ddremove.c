@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 21:06:58 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 21:52:07 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:58:23 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_err			ft_ddremove(t_dd *dd, size_t i)
 	if (i < dd->len)
 	{
 		d = dd->ptr[i];
-		error = ft_daremove(&dd->da, i);
+		error = ft_daremove(dd->da, i);
 		if (error == E_OK)
 		{
 			ft_dfree(&d);
 			dd->len -= 1;
-			dd->ptr = (t_d *)dd->da.ptr;
+			dd->ptr = (t_d *)dd->da->ptr;
 		}
 	}
 	return (error);

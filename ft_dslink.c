@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dsappend.c                                      :+:      :+:    :+:   */
+/*   ft_dslink.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:44:14 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:56:24 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/04 13:59:53 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/04 23:28:18 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_dsappend(t_ds *ds, char *mem, size_t n)
+t_err			ft_dslink(t_ds *ds, t_d *d)
 {
 	t_err	error;
 
-	error = ft_dappendc(ds->d, (t_byte *)mem, 0, n);
-	if (error)
+	error = E_OK;
+	if (d != NULL)
 	{
-		ds->ptr = (char *)ds->d->ptr;
-		ds->len = ds->d->len;
-		ds->ptr[ds->len] = '\0';
+		if (d->reserve_len < 1)
+		{
+			d->reserve_len = 1;
+			if (d->ptr)
+				error = ft_dexpand(d, 0);
+		}
+		if (error == E_OK)
+		{
+			ds->d = d;
+			ds->len = d->len;
+			ds->ptr = (char *)d->ptr;
+			if (ds->ptr)
+				ds->ptr[ds->len] = '\0';
+		}
 	}
+	else
+		error = ft_dslink(ds, &ds->_d);
 	return (error);
 }

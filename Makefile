@@ -13,6 +13,7 @@ ft_strlen.c\
 ft_strlcat.c\
 ft_strlcpy.c\
 ft_strchr.c\
+ft_strnchr.c\
 ft_strrchr.c\
 ft_strnstr.c\
 ft_strncmp.c\
@@ -21,7 +22,8 @@ ft_toupper.c\
 ft_tolower.c\
 ft_strnlen.c\
 ft_is_powof2.c\
-ft_next_powof2.c
+ft_next_powof2.c\
+ft_to_powof2.c
 OBJ=$(SRC:.c=.o)
 PART2_SRC=\
 ft_calloc.c\

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:36:19 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 23:05:48 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:39:37 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			ft_dafree(t_da *arr)
 {
-	ft_dfree(&arr->d);
+	ft_dfree(arr->d);
 	arr->len = 0;
 	arr->ptr = 0;
 }

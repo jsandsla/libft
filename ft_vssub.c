@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dsappend.c                                      :+:      :+:    :+:   */
+/*   ft_vssub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:44:14 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:56:24 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/04 15:49:40 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/04 16:00:20 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_dsappend(t_ds *ds, char *mem, size_t n)
+t_vs			ft_vssub(t_vs *vs, size_t offset, size_t len)
 {
-	t_err	error;
+	t_vs	newvs;
 
-	error = ft_dappendc(ds->d, (t_byte *)mem, 0, n);
-	if (error)
-	{
-		ds->ptr = (char *)ds->d->ptr;
-		ds->len = ds->d->len;
-		ds->ptr[ds->len] = '\0';
-	}
-	return (error);
+	newvs = *vs;
+	offset = FT_MIN(offset, vs->len - vs->offset);
+	len = FT_MIN(len, vs->len - (vs->offset + offset));
+	newvs.ptr += offset;
+	newvs.offset = 0;
+	newvs.len = len;
+	return (newvs);
 }

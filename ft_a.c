@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dsappend.c                                      :+:      :+:    :+:   */
+/*   ft_a.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:44:14 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:56:24 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/05 01:03:56 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/05 01:05:10 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_dsappend(t_ds *ds, char *mem, size_t n)
+void			*ft_a(t_a *a, size_t i)
 {
-	t_err	error;
+	void	*ptr;
 
-	error = ft_dappendc(ds->d, (t_byte *)mem, 0, n);
-	if (error)
-	{
-		ds->ptr = (char *)ds->d->ptr;
-		ds->len = ds->d->len;
-		ds->ptr[ds->len] = '\0';
-	}
-	return (error);
+	ptr = NULL;
+	if (i < a->len)
+		ptr = (t_byte *)a->ptr + i * a->sz;
+	return (ptr);
 }

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dsappend.c                                      :+:      :+:    :+:   */
+/*   ft_ddlink.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:44:14 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:56:24 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/04 14:07:41 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/04 14:32:53 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_dsappend(t_ds *ds, char *mem, size_t n)
+t_err			ft_ddlink(t_dd *dd, t_da *da)
 {
 	t_err	error;
 
-	error = ft_dappendc(ds->d, (t_byte *)mem, 0, n);
-	if (error)
+	error = E_INVALID_DATA_STRUCTURE;
+	if (da->sz == sizeof(t_d))
 	{
-		ds->ptr = (char *)ds->d->ptr;
-		ds->len = ds->d->len;
-		ds->ptr[ds->len] = '\0';
+		error = E_OK;
+		dd->da = da;
+		dd->len = da->len;
+		dd->ptr = (t_d *)da->ptr;
 	}
 	return (error);
 }

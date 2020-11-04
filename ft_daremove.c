@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:09:47 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 23:06:01 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:38:48 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_err			ft_daremove(t_da *arr, size_t index)
 	{
 		error = E_OK;
 		arr->len -= 1;
-		arr->d.len -= arr->sz;
-		ft_memcpy(arr->d.ptr + index * arr->sz,
-			arr->d.ptr + (index + 1) * arr->sz,
+		arr->d->len -= arr->sz;
+		ft_memcpy(arr->d->ptr + index * arr->sz,
+			arr->d->ptr + (index + 1) * arr->sz,
 			arr->len - index);
 	}
 	return (error);

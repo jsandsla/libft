@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 21:50:43 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 21:54:56 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:58:45 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			ft_ddfree(t_dd *dd)
 		ft_dfree(&dd->ptr[i]);
 		i += 1;
 	}
-	ft_dafree(&dd->da);
+	ft_dafree(dd->da);
 	dd->len = 0;
 	dd->ptr = 0;
 }

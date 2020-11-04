@@ -6,26 +6,22 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:37:59 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 23:06:13 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 23:25:14 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_dsinit(t_ds *str, char *mem, size_t max_len)
+t_err			ft_dsinit(t_ds *ds, char *mem, size_t len)
 {
 	t_err	error;
 
-	error = ft_dinit(&str->d, 0, 0);
+	ds->d = &ds->_d;
+	error = ft_dinitex(ds->d, mem, len, 1);
 	if (error == E_OK)
 	{
-		str->d.reserve_len = 1;
-		str->len = 0;
-		if (mem)
-			error = ft_dsappend(str, mem, max_len);
-		else if (max_len)
-			error = ft_dexpand(&str->d, max_len);
-		str->ptr = (char *)str->d.ptr;
+		ds->len = 0;
+		ds->ptr = (char *)ds->d->ptr;
 	}
 	return (error);
 }

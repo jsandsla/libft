@@ -6,15 +6,15 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:54:42 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 23:06:26 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:56:42 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			ft_dsfree(t_ds *str)
+void			ft_dsfree(t_ds *ds)
 {
-	ft_dfree(&str->d);
-	str->ptr = 0;
-	str->len = 0;
+	ft_dfree(ds->d);
+	ds->ptr = 0;
+	ds->len = 0;
 }

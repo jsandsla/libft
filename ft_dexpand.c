@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:25:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 23:04:52 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/04 23:17:44 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ t_err			ft_dexpand(t_d *d, size_t required)
 	t_byte	*new_ptr;
 
 	new_max_len = (d->max_len) ? (d->max_len * 2) : (16);
-	if (new_max_len < required)
-		new_max_len = ft_next_powof2(required);
-	new_ptr = malloc(new_max_len + d->reserve_len);
+	if (new_max_len < required + d->reserve_len)
+		new_max_len = ft_to_powof2(required + d->reserve_len);
+	new_ptr = malloc(new_max_len);
+	new_max_len -= d->reserve_len;
 	if (new_ptr)
 	{
 		if (d->ptr)
