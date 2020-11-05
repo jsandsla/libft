@@ -16,6 +16,7 @@ ft_strchr.c\
 ft_strnchr.c\
 ft_strrchr.c\
 ft_strnstr.c\
+ft_strncpy.c\
 ft_strncmp.c\
 ft_atoi.c\
 ft_toupper.c\
@@ -79,6 +80,10 @@ ft_ddappend.c\
 ft_ddremove.c\
 ft_ddlink.c\
 ft_ddfree.c\
+ft_ddsinit.c\
+ft_ddsappend.c\
+ft_dds.c\
+ft_ddsfree.c\
 ft_vscreate.c\
 ft_vssub.c\
 ft_vsinc.c\

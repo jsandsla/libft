@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:52:53 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 14:32:28 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 15:25:39 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ t_err			ft_ddnewinitex(t_dd *dd, t_d **ppd, t_byte *mem, size_t len,
 	size_t reserve_len)
 {
 	t_err	error;
+	t_d		*d;
 
 	error = ft_daappend(dd->da, 0, 1);
 	if (error == E_OK)
 	{
-		*ppd = (t_d *)ft_da(dd->da, dd->da->a.len - 1);
-		error = ft_dinitex(*ppd, mem, len, reserve_len);
-		if (error != E_OK)
-		{
+		d = (t_d *)ft_da(dd->da, dd->da->a.len - 1);
+		error = ft_dinitex(d, mem, len, reserve_len);
+		if (error == E_OK)
+			*ppd = d;
+		else
 			ft_daremove(dd->da, dd->da->a.len - 1);
-			*ppd = 0;
-		}
 		dd->len = dd->da->a.len;
 		dd->ptr = dd->da->a.ptr;
 	}

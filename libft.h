@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 14:33:27 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 16:10:55 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ typedef struct	s_dynamic_dynamic
 
 typedef struct	s_dynamic_dynamic_string
 {
-	size_t	len;
-	t_s		*ptr;
+	size_t	rate;
 	t_dd	*dd;
 	t_dd	_dd;
 }				t_dds;
@@ -112,6 +111,7 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_strnchr(const char *s, int c, size_t n);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strnstr(const char *big, const char *lit, size_t len);
+size_t			ft_strncpy(char *dest, const char *src, size_t n);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *nptr);
 int				ft_toupper(int c);
@@ -207,9 +207,17 @@ void			ft_ddremove(t_dd *dd, size_t i);
 t_err			ft_ddlink(t_dd *dd, t_da *da);
 void			ft_ddfree(t_dd *dd);
 
+t_err			ft_ddsinit(t_dds *dds, size_t rate);
+t_err			ft_ddsappend(t_dds *dds, const char *str, size_t n);
+t_err			ft_ddsappends(t_dds *dds, t_s *s);
+t_err			ft_ddsappendvs(t_dds *dds, t_vs *vs);
+t_s				ft_dds(t_dds *dds, size_t i);
+void			ft_ddsfree(t_dds *dds);
+
 t_vs			ft_vscreate(const char *str, size_t len);
-t_vs			ft_vscreateds(t_ds *ds, size_t offset, size_t len);
 t_vs			ft_vscreatestr(const char *str);
+t_vs			ft_vscreateds(t_ds *ds, size_t offset, size_t len);
+t_vs			ft_vscreates(t_s *s, size_t offset, size_t len);
 t_vs			ft_vssub(t_vs *vs, size_t offset, size_t len);
 char			ft_vsinc(t_vs *vs, size_t offset);
 char			ft_vsincif(t_vs *vs, char c, size_t offset);
