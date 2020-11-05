@@ -16,6 +16,7 @@ t_err			ft_ddinit(t_dd *dd)
 {
 	t_err	error;
 
+	dd->da = &dd->_da;
 	error = ft_dainit(dd->da, sizeof(t_d), 0, 0);
 	if (error == E_OK)
 	{

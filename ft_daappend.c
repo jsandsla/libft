@@ -6,21 +6,18 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:16:52 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:37:09 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:28:38 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_daappend(t_da *arr, void *elems, size_t count)
+t_err			ft_daappend(t_da *da, void *elems, size_t count)
 {
 	t_err	error;
 
-	error = ft_dappend(arr->d, elems, count * arr->sz);
+	error = ft_dappend(da->d, elems, count * da->a.sz);
 	if (error == E_OK)
-	{
-		arr->len = arr->d->len / arr->sz;
-		arr->ptr = arr->d->ptr;
-	}
+		ft_ainitd(&da->a, da->a.sz, da->d);
 	return (error);
 }

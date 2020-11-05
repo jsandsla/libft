@@ -6,28 +6,19 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 21:06:58 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:58:23 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:32:47 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_ddremove(t_dd *dd, size_t i)
+void			ft_ddremove(t_dd *dd, size_t i)
 {
-	t_err	error;
-	t_d		d;
-
-	error = E_OUT_OF_BOUNDS;
-	if (i < dd->len)
+	if (i < dd->len && i < dd->da->a.len)
 	{
-		d = dd->ptr[i];
-		error = ft_daremove(dd->da, i);
-		if (error == E_OK)
-		{
-			ft_dfree(&d);
-			dd->len -= 1;
-			dd->ptr = (t_d *)dd->da->ptr;
-		}
+		ft_dfree(&dd->ptr[i]);
+		ft_daremove(dd->da, i);
+		dd->len = dd->da->a.len;
+		dd->ptr = dd->da->a.ptr;
 	}
-	return (error);
 }

@@ -6,15 +6,14 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:36:19 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:39:37 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 13:54:48 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			ft_dafree(t_da *arr)
+void			ft_dafree(t_da *da)
 {
-	ft_dfree(arr->d);
-	arr->len = 0;
-	arr->ptr = 0;
+	ft_dfree(da->d);
+	ft_ainit(&da->a, da->a.sz, 0, 0);
 }

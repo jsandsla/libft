@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:59:53 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 23:28:18 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 13:32:17 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ t_err			ft_dslink(t_ds *ds, t_d *d)
 		if (error == E_OK)
 		{
 			ds->d = d;
-			ds->len = d->len;
-			ds->ptr = (char *)d->ptr;
-			if (ds->ptr)
-				ds->ptr[ds->len] = '\0';
+			ft_sinitd(&ds->s, ds->d);
 		}
 	}
 	else

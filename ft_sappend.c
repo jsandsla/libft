@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:15:20 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 01:23:01 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:28:15 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ size_t			ft_sappendd(t_s *s, t_d *d)
 		ft_memcpy(s->ptr + s->len, d->ptr, len);
 	s->len += len;
 	s->ptr[s->len] = '\0';
+	return (len);
 }
 
 size_t			ft_sappends(t_s *s, t_s *ss)
@@ -58,4 +59,5 @@ size_t			ft_sappends(t_s *s, t_s *ss)
 		ft_memcpy(s->ptr + s->len, ss->ptr, len);
 	s->len += len;
 	s->ptr[s->len] = '\0';
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:05:15 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 01:14:20 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:27:38 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void			ft_sinit(t_s *s, char *str)
 {
 	size_t	len;
 
-	len = ft_strlen(str);
+	if (str)
+		len = ft_strlen(str);
+	else
+		len = 0;
 	s->ptr = str;
 	s->len = len;
 	s->max_len = len;
@@ -26,7 +29,10 @@ void			ft_sinitn(t_s *s, char *str, size_t n)
 {
 	size_t	len;
 
-	len = ft_strnlen(s, n);
+	if (str)
+		len = ft_strnlen(str, n);
+	else
+		len = 0;
 	s->ptr = str;
 	s->len = len;
 	s->max_len = FT_MAX(len, n);

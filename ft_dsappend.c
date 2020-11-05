@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:44:14 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 13:56:24 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 13:34:46 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ t_err			ft_dsappend(t_ds *ds, char *mem, size_t n)
 
 	error = ft_dappendc(ds->d, (t_byte *)mem, 0, n);
 	if (error)
-	{
-		ds->ptr = (char *)ds->d->ptr;
-		ds->len = ds->d->len;
-		ds->ptr[ds->len] = '\0';
-	}
+		ft_sinitd(&ds->s, ds->d);
 	return (error);
 }

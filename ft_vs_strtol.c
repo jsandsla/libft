@@ -6,17 +6,17 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:11:01 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/04 20:42:16 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:37:59 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	own_strtol(char *ptr, size_t n, t_uint *out,
+static	size_t	own_strtol(const char *ptr, size_t n, int *out,
 	size_t base, const char *sym)
 {
 	size_t	len;
-	t_uint	num;
+	int		num;
 	int		sign;
 	char	*ch;
 
@@ -35,10 +35,10 @@ static	size_t	own_strtol(char *ptr, size_t n, t_uint *out,
 	return (len);
 }
 
-size_t			ft_vs_strtol(t_vs *vs, t_uint *out, int base, const char *sym)
+size_t			ft_vs_strtol(t_vs *vs, int *out, int base, const char *sym)
 {
-	char	*ptr;
-	size_t	n;
+	const char	*ptr;
+	size_t		n;
 
 	n = 0;
 	if (base >= 2 && base <= 16)
