@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 15:08:41 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/08 19:52:55 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/08 20:09:20 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,28 @@
 
 t_err			ft_ddsappend(t_dds *dds, const char *str, size_t n)
 {
-	t_ds	ds;
+	t_d		*d;
+	t_s		s;
 	size_t	res;
 	t_err	error;
 
 	error = E_OK;
 	if (!dds->dd->len)
-		error = ft_ddnewinitex(dds->dd, &ds.d, 0, dds->rate - 1, 1);
+		error = ft_ddnewinitex(dds->dd, &d, 0, dds->rate - 1, 1);
 	if (error == E_OK)
-		error = ft_dsinitdlink(&ds, &dds->dd->ptr[dds->dd->len - 1]);
-	while (error == E_OK && (res = ft_sappendn(&ds.s, str, n)) && res < n &&
+	{
+		d = &dds->dd->ptr[dds->dd->len - 1];
+		ft_sinitd(&s, d);
+	}
+	while (error == E_OK && (res = ft_sappendn(&s, str, n)) && res < n &&
 		str[res] != '\0')
 	{
 		str += res;
 		n -= res;
-		error = ft_ddnewinitex(dds->dd, &ds.d, 0,
-			(ds.d->max_len + 1) * 2 - 1, 1);
+		error = ft_ddnewinitex(dds->dd, &d, 0,
+			(d->max_len + 1) * 2 - 1, 1);
 		if (error == E_OK)
-			error = ft_dsinitd(&ds, ds.d);
+			ft_sinitd(&s, d);
 	}
 	return (error);
 }
