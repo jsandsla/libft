@@ -103,7 +103,7 @@ D_OBJ=$(D_SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c libft.h
-	cc -Wall -Werror -Wextra -c $< -o $@
+	cc -Wall -Werror -Wextra -c $< -o $@ -g
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $?
