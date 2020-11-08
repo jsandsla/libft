@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:15:20 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 16:07:02 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/06 17:18:51 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ size_t			ft_sappends(t_s *s, t_s *ss)
 	len = FT_MIN(s->max_len - s->len, ss->len);
 	if (len)
 		len = ft_strncpy(s->ptr + s->len, ss->ptr, len);
+	s->len += len;
+	s->ptr[s->len] = '\0';
+	return (len);
+}
+
+size_t			ft_sappendc(t_s *s, char c)
+{
+	size_t	len;
+
+	len = FT_MIN(s->max_len - s->len, 1);
+	if (len)
+		s->ptr[s->len] = c;
 	s->len += len;
 	s->ptr[s->len] = '\0';
 	return (len);

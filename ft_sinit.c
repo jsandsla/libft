@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:05:15 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 14:27:38 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/07 17:07:30 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,11 @@ void			ft_sinitd(t_s *s, t_d *d)
 	s->max_len = d->reserve_len ? d->max_len : d->max_len - 1;
 	s->len = FT_MIN(d->len, s->max_len);
 	s->ptr[s->len] = '\0';
+}
+
+void			ft_sinitm(t_s *s, void *mem, size_t n)
+{
+	s->ptr = (char *)mem;
+	s->len = 0;
+	s->max_len = n - 1;
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 16:10:55 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/07 16:48:33 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ size_t			ft_is_powof2(size_t val);
 size_t			ft_next_powof2(size_t val);
 size_t			ft_to_powof2(size_t val);
 
+ssize_t			ft_max(ssize_t l, ssize_t r);
+ssize_t			ft_min(ssize_t l, ssize_t r);
+
 /*
 ** make part2; dep: malloc, free, write;
 */
@@ -167,11 +170,14 @@ void			*ft_a(t_a *a, size_t i);
 void			ft_sinit(t_s *s, char *str);
 void			ft_sinitn(t_s *s, char *str, size_t n);
 void			ft_sinitd(t_s *s, t_d *d);
+void			ft_sinitm(t_s *s, void *mem, size_t n);
 size_t			ft_sappend(t_s *s, const char *str);
 size_t			ft_sappendn(t_s *s, const char *str, size_t n);
 size_t			ft_sappendd(t_s *s, t_d *d);
 size_t			ft_sappends(t_s *s, t_s *ss);
+size_t			ft_sappendc(t_s *s, char c);
 size_t			ft_scut(t_s *s, size_t offset, size_t len);
+void			ft_sreverse(t_s *s, size_t offset, size_t len);
 char			ft_s(t_s *s, size_t i);
 
 t_err			ft_dinit(t_d *d, t_byte *mem, size_t len);
@@ -209,10 +215,13 @@ void			ft_ddfree(t_dd *dd);
 
 t_err			ft_ddsinit(t_dds *dds, size_t rate);
 t_err			ft_ddsappend(t_dds *dds, const char *str, size_t n);
+t_err			ft_ddsappendstr(t_dds *dds, const char *str);
+t_err			ft_ddsappendc(t_dds *dds, char c);
 t_err			ft_ddsappends(t_dds *dds, t_s *s);
 t_err			ft_ddsappendvs(t_dds *dds, t_vs *vs);
 t_s				ft_dds(t_dds *dds, size_t i);
 void			ft_ddsfree(t_dds *dds);
+size_t			ft_dds_len(t_dds *dds);
 
 t_vs			ft_vscreate(const char *str, size_t len);
 t_vs			ft_vscreatestr(const char *str);

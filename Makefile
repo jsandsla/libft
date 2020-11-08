@@ -24,7 +24,9 @@ ft_tolower.c\
 ft_strnlen.c\
 ft_is_powof2.c\
 ft_next_powof2.c\
-ft_to_powof2.c
+ft_to_powof2.c\
+ft_max.c\
+ft_min.c
 OBJ=$(SRC:.c=.o)
 PART2_SRC=\
 ft_calloc.c\
@@ -59,6 +61,7 @@ ft_a.c\
 ft_sinit.c\
 ft_sappend.c\
 ft_scut.c\
+ft_sreverse.c\
 ft_s.c\
 ft_dinit.c\
 ft_dexpand.c\
@@ -84,6 +87,7 @@ ft_ddsinit.c\
 ft_ddsappend.c\
 ft_dds.c\
 ft_ddsfree.c\
+ft_dds_len.c\
 ft_vscreate.c\
 ft_vssub.c\
 ft_vsinc.c\
