@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/07 16:48:33 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/08 19:07:49 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,14 +265,14 @@ unsigned char	g_ctype_char_info[256] = {
 	0x10
 };
 
-# define IS_ALNUM(x) (g_ctype_char_info[x] & 1)
-# define IS_ALPHA(x) (g_ctype_char_info[x] & 2)
-# define IS_DIGIT(x) (g_ctype_char_info[x] & 4)
-# define IS_LOWER(x) (g_ctype_char_info[x] & 8)
-# define IS_PRINT(x) (g_ctype_char_info[x] & 16)
-# define IS_SPACE(x) (g_ctype_char_info[x] & 32)
-# define IS_UPPER(x) (g_ctype_char_info[x] & 64)
-# define IS_XDIGIT(x) (g_ctype_char_info[x] & 128)
+# define IS_ALNUM(x) (g_ctype_char_info[(unsigned)(x)] & 1)
+# define IS_ALPHA(x) (g_ctype_char_info[(unsigned)(x)] & 2)
+# define IS_DIGIT(x) (g_ctype_char_info[(unsigned)(x)] & 4)
+# define IS_LOWER(x) (g_ctype_char_info[(unsigned)(x)] & 8)
+# define IS_PRINT(x) (g_ctype_char_info[(unsigned)(x)] & 16)
+# define IS_SPACE(x) (g_ctype_char_info[(unsigned)(x)] & 32)
+# define IS_UPPER(x) (g_ctype_char_info[(unsigned)(x)] & 64)
+# define IS_XDIGIT(x) (g_ctype_char_info[(unsigned)(x)] & 128)
 
 # define IS_ASCII(x) ((char)(unsigned char)(x) >= 0)
 
