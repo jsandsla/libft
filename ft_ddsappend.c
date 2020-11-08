@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 15:08:41 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/07 16:50:08 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/08 19:52:55 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_err			ft_ddsappend(t_dds *dds, const char *str, size_t n)
 	if (!dds->dd->len)
 		error = ft_ddnewinitex(dds->dd, &ds.d, 0, dds->rate - 1, 1);
 	if (error == E_OK)
-		error = ft_dsinitd(&ds, &dds->dd->ptr[dds->dd->len - 1]);
+		error = ft_dsinitdlink(&ds, &dds->dd->ptr[dds->dd->len - 1]);
 	while (error == E_OK && (res = ft_sappendn(&ds.s, str, n)) && res < n &&
 		str[res] != '\0')
 	{
