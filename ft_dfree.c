@@ -14,9 +14,7 @@
 
 void			ft_dfree(t_d *d)
 {
-	if (d->ptr)
-		free(d->ptr);
-	d->len = 0;
-	d->max_len = 0;
-	d->ptr = 0;
+	if (d->m->ptr)
+		free(d->m->ptr);
+	ft_dinit(d, 0, 0);
 }

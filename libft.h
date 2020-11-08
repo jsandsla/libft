@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/08 19:25:43 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/09 01:39:11 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,44 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+typedef struct	s_memory
+{
+	size_t	len;
+	size_t	cap;
+	t_byte	*ptr;
+}				t_m;
+
 typedef struct	s_array
 {
 	size_t	len;
 	size_t	max_len;
 	size_t	sz;
-	void	*ptr;
+	t_m		*m;
+	t_m		_m;
 }				t_a;
 
 typedef struct	s_string
 {
 	size_t	len;
 	size_t	max_len;
-	char	*ptr;
+	t_m		*m;
+	t_m		_m;
 }				t_s;
 
 typedef struct	s_dynamic
 {
-	size_t	len;
-	size_t	max_len;
-	size_t	reserve_len;
-	t_byte	*ptr;
+	t_m		*m;
+	t_m		_m;
 }				t_d;
 
 typedef struct	s_dynamic_array
 {
-	t_a	a;
-	t_d	*d;
-	t_d	_d;
+	t_a		a;
 }				t_da;
 
 typedef struct	s_dynamic_string
 {
-	t_s	s;
-	t_d	*d;
-	t_d	_d;
+	t_s		s;
 }				t_ds;
 
 typedef struct	s_dynamic_dynamic
@@ -83,8 +86,7 @@ typedef struct	s_dynamic_dynamic
 typedef struct	s_dynamic_dynamic_string
 {
 	size_t	rate;
-	t_dd	*dd;
-	t_dd	_dd;
+	t_dd	dd;
 }				t_dds;
 
 typedef struct	s_view_string
@@ -158,59 +160,67 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 /*
 ** make d; dep: malloc, free;
 */
-void			ft_ainit(t_a *a, size_t sz, void *mem, size_t max_len);
-void			ft_ainitd(t_a *a, size_t sz, t_d *d);
+void			ft_minit(t_m *m, void *mem, size_t len, size_t cap);
+size_t			ft_mwrite(t_m *m, size_t offset, void *mem, size_t len);
+size_t			ft_mwriteb(t_m *m, size_t offset, t_byte b);
+size_t			ft_mappend(t_m *m, void *mem, size_t len);
+size_t			ft_mappendm(t_m *m, t_m *mm);
+size_t			ft_mappendb(t_m *m, t_byte b);
+size_t			ft_mcut(t_m *m, size_t offset, size_t len);
+void			*ft_m(t_m *m, size_t offset);
+
+void			ft_ainit(t_a *a, size_t sz, void *mem, size_t len,
+	size_t max_len);
+void			ft_ainitm(t_a *a, size_t sz, t_m *m);
 size_t			ft_aappend(t_a *a, void *elems, size_t count);
-size_t			ft_aappendd(t_a *a, t_d *d);
 size_t			ft_aappenda(t_a *a, t_a *aa);
+size_t			ft_aappendm(t_a *a, t_m *m);
 void			ft_aremove(t_a *a, size_t i);
 void			ft_aremovep(t_a *a, void *p);
 void			*ft_a(t_a *a, size_t i);
 
 void			ft_sinit(t_s *s, char *str);
 void			ft_sinitn(t_s *s, char *str, size_t n);
-void			ft_sinitd(t_s *s, t_d *d);
-void			ft_sinitm(t_s *s, void *mem, size_t n);
+void			ft_sinitm(t_s *s, t_m *m);
 size_t			ft_sappend(t_s *s, const char *str);
 size_t			ft_sappendn(t_s *s, const char *str, size_t n);
-size_t			ft_sappendd(t_s *s, t_d *d);
-size_t			ft_sappends(t_s *s, t_s *ss);
 size_t			ft_sappendc(t_s *s, char c);
+size_t			ft_sappends(t_s *s, t_s *ss);
+size_t			ft_sappendm(t_s *s, t_m *m);
 size_t			ft_scut(t_s *s, size_t offset, size_t len);
 void			ft_sreverse(t_s *s, size_t offset, size_t len);
 char			ft_s(t_s *s, size_t i);
 
 t_err			ft_dinit(t_d *d, t_byte *mem, size_t len);
-t_err			ft_dinitex(t_d *d, t_byte *mem, size_t len, size_t reserve_len);
+void			ft_dinitm(t_d *d, t_m *m);
 t_err			ft_dexpand(t_d *d, size_t required);
 t_err			ft_dappend(t_d *d, t_byte *mem, size_t len);
 t_err			ft_dappendc(t_d *d, t_byte *mem, t_byte c, size_t len);
 void			ft_dfree(t_d *d);
 
-t_err			ft_dainit(t_da *da, size_t sz, void *elems, size_t max_len);
-t_err			ft_dainitd(t_da *da, size_t sz, t_d *d);
-t_err			ft_dainitdlink(t_da *da, size_t sz, t_d *d);
+t_err			ft_dainit(t_da *da, size_t sz, void *elems, size_t len,
+	size_t max_len);
+t_err			ft_dainitm(t_da *da, size_t sz, t_m *m);
+t_err			ft_daexpand(t_da *da, size_t required);
 t_err			ft_daappend(t_da *da, void *elems, size_t count);
 void			ft_daremove(t_da *da, size_t i);
-t_err			ft_dalink(t_da *da, size_t sz, t_d *d);
 void			*ft_da(t_da *da, size_t i);
 void			ft_dafree(t_da *da);
 
-t_err			ft_dsinit(t_ds *ds, char *mem, size_t len);
-t_err			ft_dsinitd(t_ds *ds, t_d *d);
-t_err			ft_dsinitdlink(t_ds *ds, t_d *d);
-t_err			ft_dsappend(t_ds *ds, char *mem, size_t n);
-t_err			ft_dslink(t_ds *ds, t_d *d);
+t_err			ft_dsinit(t_ds *ds, char *str);
+t_err			ft_dsinitn(t_ds *ds, char *str, size_t len);
+void			ft_dsinitm(t_ds *ds, t_m *m);
+t_err			ft_dsexpand(t_ds *ds, size_t required);
+t_err			ft_dsappend(t_ds *ds, const char *str, size_t n);
+t_err			ft_dsappendstr(t_ds *ds, const char *str);
 void			ft_dsfree(t_ds *ds);
 
-t_err			ft_ddinit(t_dd *dd);
+void			ft_ddinit(t_dd *dd);
+void			ft_ddinitda(t_dd *dd, t_da *da);
 t_err			ft_ddnew(t_dd *dd, t_d **ppd);
 t_err			ft_ddnewinit(t_dd *dd, t_d **ppd, t_byte *mem, size_t len);
-t_err			ft_ddnewinitex(t_dd *dd, t_d **ppd, t_byte *mem, size_t len,
-	size_t reserve_len);
 t_err			ft_ddappend(t_dd *dd, t_d *d);
 void			ft_ddremove(t_dd *dd, size_t i);
-t_err			ft_ddlink(t_dd *dd, t_da *da);
 void			ft_ddfree(t_dd *dd);
 
 t_err			ft_ddsinit(t_dds *dds, size_t rate);
@@ -225,7 +235,6 @@ size_t			ft_dds_len(t_dds *dds);
 
 t_vs			ft_vscreate(const char *str, size_t len);
 t_vs			ft_vscreatestr(const char *str);
-t_vs			ft_vscreateds(t_ds *ds, size_t offset, size_t len);
 t_vs			ft_vscreates(t_s *s, size_t offset, size_t len);
 t_vs			ft_vssub(t_vs *vs, size_t offset, size_t len);
 char			ft_vsinc(t_vs *vs, size_t offset);

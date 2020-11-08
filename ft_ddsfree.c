@@ -14,5 +14,5 @@
 
 void			ft_ddsfree(t_dds *dds)
 {
-	ft_ddfree(dds->dd);
+	ft_ddfree(&dds->dd);
 }

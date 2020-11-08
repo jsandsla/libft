@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_daappend.c                                      :+:      :+:    :+:   */
+/*   ft_minit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:16:52 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/09 00:10:57 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/08 20:58:49 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/08 20:59:11 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_daappend(t_da *da, void *elems, size_t count)
+void			ft_minit(t_m *m, void *mem, size_t len, size_t cap)
 {
-	t_err	error;
-	t_d		d;
-
-	ft_dinitm(&d, da->a.m);
-	error = ft_dappend(&d, elems, count * da->a.sz);
-	if (error == E_OK)
-		ft_ainitm(&da->a, da->a.sz, d.m);
-	return (error);
+	m->ptr = mem;
+	m->len = len;
+	m->cap = cap;
 }

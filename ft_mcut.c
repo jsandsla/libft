@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_daappend.c                                      :+:      :+:    :+:   */
+/*   ft_mcut.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:16:52 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/09 00:10:57 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/08 21:36:26 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/08 21:42:41 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_daappend(t_da *da, void *elems, size_t count)
+size_t			ft_mcut(t_m *m, size_t offset, size_t len)
 {
-	t_err	error;
-	t_d		d;
-
-	ft_dinitm(&d, da->a.m);
-	error = ft_dappend(&d, elems, count * da->a.sz);
-	if (error == E_OK)
-		ft_ainitm(&da->a, da->a.sz, d.m);
-	return (error);
+	offset = FT_MIN(offset, m->len);
+	len = FT_MIN(len, m->len - offset);
+	if (offset + len < m->len)
+		ft_memcpy(m->ptr + offset,
+			m->ptr + offset + len,
+			m->len - offset - len);
+	m->len -= len;
+	return (len);
 }

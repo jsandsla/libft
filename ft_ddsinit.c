@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 15:01:56 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 16:07:24 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/09 01:13:54 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_err			ft_ddsinit(t_dds *dds, size_t rate)
 	error = E_INVALID_PARAMETER;
 	if (rate > 0)
 	{
+		error = E_OK;
 		dds->rate = rate;
-		dds->dd = &dds->_dd;
-		error = ft_ddinit(dds->dd);
+		ft_ddinit(&dds->dd);
 	}
 	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:03:56 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 01:05:10 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/08 21:53:41 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void			*ft_a(t_a *a, size_t i)
 
 	ptr = NULL;
 	if (i < a->len)
-		ptr = (t_byte *)a->ptr + i * a->sz;
+		ptr = a->m->ptr + i * a->sz;
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:54:42 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 13:37:30 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/09 00:34:56 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void			ft_dsfree(t_ds *ds)
 {
-	ft_dfree(ds->d);
-	ft_sinit(&ds->s, 0);
+	t_d		d;
+
+	ft_dinitm(&d, ds->s.m);
+	ft_dfree(&d);
+	ft_sinitm(&ds->s, d.m);
 }

@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_daappend.c                                      :+:      :+:    :+:   */
+/*   ft_mwrite.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 18:16:52 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/09 00:10:57 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/08 21:09:25 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/08 21:38:59 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_daappend(t_da *da, void *elems, size_t count)
+size_t			ft_mwrite(t_m *m, size_t offset, void *mem, size_t len)
 {
-	t_err	error;
-	t_d		d;
+	offset = FT_MIN(offset, m->cap);
+	len = FT_MIN(len, m->cap - offset);
+	if (len)
+		ft_memcpy(m->ptr, mem, len);
+	m->len = FT_MAX(m->len, offset + len);
+	return (len);
+}
 
-	ft_dinitm(&d, da->a.m);
-	error = ft_dappend(&d, elems, count * da->a.sz);
-	if (error == E_OK)
-		ft_ainitm(&da->a, da->a.sz, d.m);
-	return (error);
+size_t			ft_mwriteb(t_m *m, size_t offset, t_byte b)
+{
+	size_t	len;
+
+	len = (offset < m->cap);
+	if (len)
+	{
+		m->ptr[offset] = b;
+		m->len = FT_MAX(m->len, offset + 1);
+	}
+	return (len);
 }

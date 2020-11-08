@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 21:06:58 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 14:32:47 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/09 00:42:58 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void			ft_ddremove(t_dd *dd, size_t i)
 		ft_dfree(&dd->ptr[i]);
 		ft_daremove(dd->da, i);
 		dd->len = dd->da->a.len;
-		dd->ptr = dd->da->a.ptr;
+		dd->ptr = (t_d *)dd->da->a.m->ptr;
 	}
 }

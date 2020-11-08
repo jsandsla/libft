@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:32:26 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 01:35:31 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/08 22:17:52 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ char			ft_s(t_s *s, size_t i)
 
 	c = 0;
 	if (i < s->len)
-		c = s->ptr[i];
+		c = (char)s->m->ptr[i];
 	return (c);
 }
