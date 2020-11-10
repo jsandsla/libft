@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/09 01:39:11 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/10 19:47:48 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_list
 
 typedef struct	s_memory
 {
+	size_t	sz;
 	size_t	len;
 	size_t	cap;
 	t_byte	*ptr;
@@ -44,17 +45,12 @@ typedef struct	s_memory
 
 typedef struct	s_array
 {
-	size_t	len;
-	size_t	max_len;
-	size_t	sz;
 	t_m		*m;
 	t_m		_m;
 }				t_a;
 
 typedef struct	s_string
 {
-	size_t	len;
-	size_t	max_len;
 	t_m		*m;
 	t_m		_m;
 }				t_s;
@@ -160,7 +156,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 /*
 ** make d; dep: malloc, free;
 */
-void			ft_minit(t_m *m, void *mem, size_t len, size_t cap);
+void			ft_minit(t_m *m, size_t sz, void *mem, size_t len, size_t cap);
 size_t			ft_mwrite(t_m *m, size_t offset, void *mem, size_t len);
 size_t			ft_mwriteb(t_m *m, size_t offset, t_byte b);
 size_t			ft_mappend(t_m *m, void *mem, size_t len);
@@ -169,11 +165,9 @@ size_t			ft_mappendb(t_m *m, t_byte b);
 size_t			ft_mcut(t_m *m, size_t offset, size_t len);
 void			*ft_m(t_m *m, size_t offset);
 
-void			ft_ainit(t_a *a, size_t sz, void *mem, size_t len,
-	size_t max_len);
-void			ft_ainitm(t_a *a, size_t sz, t_m *m);
+void			ft_ainit(t_a *a, size_t sz, void *mem, size_t len, size_t cap);
+void			ft_ainitm(t_a *a, t_m *m);
 size_t			ft_aappend(t_a *a, void *elems, size_t count);
-size_t			ft_aappenda(t_a *a, t_a *aa);
 size_t			ft_aappendm(t_a *a, t_m *m);
 void			ft_aremove(t_a *a, size_t i);
 void			ft_aremovep(t_a *a, void *p);
@@ -195,12 +189,11 @@ t_err			ft_dinit(t_d *d, t_byte *mem, size_t len);
 void			ft_dinitm(t_d *d, t_m *m);
 t_err			ft_dexpand(t_d *d, size_t required);
 t_err			ft_dappend(t_d *d, t_byte *mem, size_t len);
-t_err			ft_dappendc(t_d *d, t_byte *mem, t_byte c, size_t len);
+t_err			ft_dappendm(t_d *d, t_m *m);
 void			ft_dfree(t_d *d);
 
-t_err			ft_dainit(t_da *da, size_t sz, void *elems, size_t len,
-	size_t max_len);
-t_err			ft_dainitm(t_da *da, size_t sz, t_m *m);
+t_err			ft_dainit(t_da *da, size_t sz, void *p, size_t len, size_t cp);
+void			ft_dainitm(t_da *da, t_m *m);
 t_err			ft_daexpand(t_da *da, size_t required);
 t_err			ft_daappend(t_da *da, void *elems, size_t count);
 void			ft_daremove(t_da *da, size_t i);

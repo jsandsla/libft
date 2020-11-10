@@ -12,25 +12,25 @@
 
 #include "libft.h"
 
-t_err			ft_dsinit(t_ds *ds, char *mem)
+t_err			ft_dsinit(t_ds *ds, char *str)
 {
 	t_err	error;
 
 	error = E_OK;
 	ft_sinitn(&ds->s, 0, 0);
-	if (mem)
-		error = ft_dsappendstr(ds, mem);
+	if (str)
+		error = ft_dsappendstr(ds, str);
 	return (error);
 }
 
-t_err			ft_dsinitn(t_ds *ds, char *mem, size_t len)
+t_err			ft_dsinitn(t_ds *ds, char *str, size_t len)
 {
 	t_err	error;
 
 	error = E_OK;
 	ft_sinitn(&ds->s, 0, 0);
-	if (mem)
-		error = ft_dsappend(ds, mem, len);
+	if (str)
+		error = ft_dsappend(ds, str, len);
 	return (error);
 }
 

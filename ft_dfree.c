@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:00:50 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/03 18:01:26 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/10 19:52:31 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@ void			ft_dfree(t_d *d)
 {
 	if (d->m->ptr)
 		free(d->m->ptr);
-	ft_dinit(d, 0, 0);
+	d->m->ptr = 0;
+	d->m->len = 0;
+	d->m->cap = 0;
 }

@@ -18,7 +18,7 @@ t_err			ft_dinit(t_d *d, t_byte *mem, size_t len)
 
 	error = E_OK;
 	d->m = &d->_m;
-	ft_minit(d->m, 0, 0, 0);
+	ft_minit(d->m, 1, NULL, 0, 0);
 	if (mem)
 		error = ft_dappend(d, mem, len);
 	else if (len)

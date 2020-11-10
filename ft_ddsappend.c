@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 15:08:41 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/09 01:41:32 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/10 20:12:24 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_err			ft_ddsappends(t_dds *dds, t_s *s)
 {
 	t_err	error;
 
-	error = ft_ddsappend(dds, (char *)s->m->ptr, s->len);
+	error = ft_ddsappend(dds, (char *)s->m->ptr, s->m->len);
 	return (error);
 }
 

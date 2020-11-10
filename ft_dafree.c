@@ -18,5 +18,4 @@ void			ft_dafree(t_da *da)
 
 	ft_dinitm(&d, da->a.m);
 	ft_dfree(&d);
-	ft_ainitm(&da->a, da->a.sz, d.m);
 }
