@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:20:33 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/11 00:49:15 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/11 00:53:34 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ size_t			ft_dds_len(t_dds *dds)
 	size_t	len;
 	size_t	i;
 
+	i = 0;
 	len = 0;
 	while (i < dds->dd.len)
 	{
