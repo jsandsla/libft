@@ -225,6 +225,7 @@ t_err			ft_ddsappendvs(t_dds *dds, t_vs *vs);
 t_s				ft_dds(t_dds *dds, size_t i);
 void			ft_ddsfree(t_dds *dds);
 size_t			ft_dds_len(t_dds *dds);
+t_err			ft_dds_spread(t_dds *dds, char c, size_t len);
 
 t_vs			ft_vscreate(const char *str, size_t len);
 t_vs			ft_vscreatestr(const char *str);

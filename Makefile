@@ -93,6 +93,7 @@ ft_ddsappend.c\
 ft_dds.c\
 ft_ddsfree.c\
 ft_dds_len.c\
+ft_dds_spread.c\
 ft_vscreate.c\
 ft_vssub.c\
 ft_vsinc.c\
