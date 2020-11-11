@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:15:20 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/10 19:32:24 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/11 17:03:46 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t			ft_sappend(t_s *s, const char *str)
 	t_m		*m;
 
 	m = s->m;
-	len = m->len < m->cap ? m->cap - m->len : 0;
+	len = m->len < m->cap ? m->cap - m->len - 1 : 0;
 	if (len)
 	{
 		len = ft_strncpy((char *)m->ptr + m->len, str, len);
@@ -34,7 +34,7 @@ size_t			ft_sappendn(t_s *s, const char *str, size_t n)
 	t_m		*m;
 
 	m = s->m;
-	len = m->len < m->cap ? FT_MIN(m->cap - m->len, n) : 0;
+	len = m->len < m->cap ? FT_MIN(m->cap - m->len - 1, n) : 0;
 	if (len)
 	{
 		len = ft_strncpy((char *)m->ptr + m->len, str, len);

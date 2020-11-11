@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 15:08:41 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/10 20:12:24 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/11 17:02:45 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@ t_err			ft_ddsappend(t_dds *dds, const char *str, size_t n)
 		error = ft_ddnewinit(&dds->dd, &d, NULL, dds->rate);
 	if (error == E_OK)
 	{
-		d = &dds->dd.ptr[dds->dd.len - 1];
-		ft_sinitm(&s, d->m);
-	}
-	while (error == E_OK && (res = ft_sappendn(&s, str, n)) && res < n &&
-		str[res] != '\0')
-	{
-		str += res;
-		n -= res;
-		error = ft_ddnewinit(&dds->dd, &d, NULL, s.m->cap * 2);
-		if (error == E_OK)
-			ft_sinitm(&s, d->m);
+		ft_sinitm(&s, dds->dd.ptr[dds->dd.len - 1].m);
+		res = ft_sappendn(&s, str, n);
+		while (error == E_OK && res < n && str[res] != '\0')
+		{
+			str += res;
+			n -= res;
+			error = ft_ddnewinit(&dds->dd, &d, NULL, s.m->cap * 2);
+			if (error == E_OK)
+			{
+				ft_sinitm(&s, d->m);
+				res = ft_sappendn(&s, str, n);
+			}
+		}
 	}
 	return (error);
 }
