@@ -49,19 +49,40 @@ t_err			ft_ddsappendstr(t_dds *dds, const char *str)
 	return (error);
 }
 
-t_err			ft_ddsappendc(t_dds *dds, char c)
+t_err			ft_ddsappendraw(t_dds *dds, const char *str, size_t n)
 {
+	t_d		*d;
+	t_s		s;
+	size_t	res;
 	t_err	error;
 
-	error = ft_ddsappend(dds, &c, 1);
+	error = E_OK;
+	if (!dds->dd.len)
+		error = ft_ddnewinit(&dds->dd, &d, NULL, dds->rate);
+	if (error == E_OK)
+	{
+		ft_sinitm(&s, dds->dd.ptr[dds->dd.len - 1].m);
+		res = ft_sappendraw(&s, str, n);
+		while (error == E_OK && res < n && str[res] != '\0')
+		{
+			str += res;
+			n -= res;
+			error = ft_ddnewinit(&dds->dd, &d, NULL, s.m->cap * 2);
+			if (error == E_OK)
+			{
+				ft_sinitm(&s, d->m);
+				res = ft_sappendraw(&s, str, n);
+			}
+		}
+	}
 	return (error);
 }
 
-t_err			ft_ddsappends(t_dds *dds, t_s *s)
+t_err			ft_ddsappendm(t_dds *dds, t_m *m)
 {
 	t_err	error;
 
-	error = ft_ddsappend(dds, (char *)s->m->ptr, s->m->len);
+	error = ft_ddsappendraw(dds, (char *)m->ptr, m->len);
 	return (error);
 }
 

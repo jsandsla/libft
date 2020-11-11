@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/10 19:47:48 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/11 17:52:17 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,8 @@ void			ft_sinitn(t_s *s, char *str, size_t n);
 void			ft_sinitm(t_s *s, t_m *m);
 size_t			ft_sappend(t_s *s, const char *str);
 size_t			ft_sappendn(t_s *s, const char *str, size_t n);
+size_t			ft_sappendraw(t_s *s, const char *str, size_t n);
 size_t			ft_sappendc(t_s *s, char c);
-size_t			ft_sappends(t_s *s, t_s *ss);
 size_t			ft_sappendm(t_s *s, t_m *m);
 size_t			ft_scut(t_s *s, size_t offset, size_t len);
 void			ft_sreverse(t_s *s, size_t offset, size_t len);
@@ -219,8 +219,8 @@ void			ft_ddfree(t_dd *dd);
 t_err			ft_ddsinit(t_dds *dds, size_t rate);
 t_err			ft_ddsappend(t_dds *dds, const char *str, size_t n);
 t_err			ft_ddsappendstr(t_dds *dds, const char *str);
-t_err			ft_ddsappendc(t_dds *dds, char c);
-t_err			ft_ddsappends(t_dds *dds, t_s *s);
+t_err			ft_ddsappendraw(t_dds *dds, const char *str, size_t n);
+t_err			ft_ddsappendm(t_dds *dds, t_m *m);
 t_err			ft_ddsappendvs(t_dds *dds, t_vs *vs);
 t_s				ft_dds(t_dds *dds, size_t i);
 void			ft_ddsfree(t_dds *dds);
