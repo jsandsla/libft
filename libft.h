@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/13 21:17:36 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/14 00:29:49 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,13 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 /*
 ** make d; dep: malloc, free;
 */
-void			ft_minit(t_m *m, size_t sz, void *mem, size_t cap);
+void			ft_minit(t_m *m, size_t sz, void *mem, size_t len);
 size_t			ft_mwrite(t_m *m, size_t offset, void *mem, size_t len);
 size_t			ft_mwriteb(t_m *m, size_t offset, t_byte b);
 size_t			ft_mappend(t_m *m, void *mem, size_t len);
 size_t			ft_mappendm(t_m *m, t_m *mm);
 size_t			ft_mappendb(t_m *m, t_byte b);
+size_t			ft_mmove(t_m *m, void *mem, size_t len);
 size_t			ft_mcut(t_m *m, size_t offset, size_t len);
 void			*ft_m(t_m *m, size_t offset);
 
@@ -192,6 +193,7 @@ size_t			ft_sappendn(t_s *s, const char *str, size_t n);
 size_t			ft_sappendraw(t_s *s, const char *str, size_t n);
 size_t			ft_sappendc(t_s *s, char c);
 size_t			ft_sappendm(t_s *s, t_m *m);
+size_t			ft_smove(t_s *s, void *mem, size_t cap);
 size_t			ft_scut(t_s *s, size_t offset, size_t len);
 void			ft_sreverse(t_s *s, size_t offset, size_t len);
 char			ft_s(t_s *s, size_t i);
