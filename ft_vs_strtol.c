@@ -6,14 +6,14 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:11:01 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/05 14:47:49 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/13 21:24:01 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	own_strtol(const char *ptr, size_t n, int *out,
-	size_t base, const char *sym)
+static	int		own_strtol(const char *ptr, size_t n, size_t base,
+	const char *sym)
 {
 	size_t	len;
 	int		num;
@@ -31,21 +31,24 @@ static	size_t	own_strtol(const char *ptr, size_t n, int *out,
 		num += sign * (int)((size_t)ch - (size_t)sym);
 		len += 1;
 	}
-	*out = num;
-	return (len);
+	return (num);
 }
 
 size_t			ft_vs_strtol(t_vs *vs, int *out, int base, const char *sym)
 {
 	const char	*ptr;
 	size_t		n;
+	size_t		i;
 
-	n = 0;
+	i = 0;
 	if (base >= 2 && base <= 16)
 	{
 		ptr = vs->ptr + vs->offset;
 		n = vs->len - vs->offset;
-		n = own_strtol(ptr, n, out, base, sym);
+		*out = own_strtol(ptr, n, base, sym);
+		i = (*ptr == '-' || *ptr == '+');
+		while (i < n && ft_strnchr(sym, ptr[i], base))
+			i += 1;
 	}
-	return (n);
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/11 17:52:17 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/13 21:17:36 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <stdint.h>
 
 # define E_OK 0
 # define E_UNKNOW -1
@@ -46,19 +47,19 @@ typedef struct	s_memory
 typedef struct	s_array
 {
 	t_m		*m;
-	t_m		_m;
+	t_m		local_m;
 }				t_a;
 
 typedef struct	s_string
 {
 	t_m		*m;
-	t_m		_m;
+	t_m		local_m;
 }				t_s;
 
 typedef struct	s_dynamic
 {
 	t_m		*m;
-	t_m		_m;
+	t_m		local_m;
 }				t_d;
 
 typedef struct	s_dynamic_array
@@ -76,7 +77,7 @@ typedef struct	s_dynamic_dynamic
 	size_t	len;
 	t_d		*ptr;
 	t_da	*da;
-	t_da	_da;
+	t_da	local_da;
 }				t_dd;
 
 typedef struct	s_dynamic_dynamic_string
@@ -123,6 +124,15 @@ size_t			ft_to_powof2(size_t val);
 ssize_t			ft_max(ssize_t l, ssize_t r);
 ssize_t			ft_min(ssize_t l, ssize_t r);
 
+typedef union	u_ieee754
+{
+	uint64_t	u;
+	double		f;
+}				t_ieee754;
+
+int				ft_isnan(double f);
+int				ft_isinf(double f);
+
 /*
 ** make part2; dep: malloc, free, write;
 */
@@ -156,7 +166,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 /*
 ** make d; dep: malloc, free;
 */
-void			ft_minit(t_m *m, size_t sz, void *mem, size_t len, size_t cap);
+void			ft_minit(t_m *m, size_t sz, void *mem, size_t cap);
 size_t			ft_mwrite(t_m *m, size_t offset, void *mem, size_t len);
 size_t			ft_mwriteb(t_m *m, size_t offset, t_byte b);
 size_t			ft_mappend(t_m *m, void *mem, size_t len);
@@ -165,7 +175,7 @@ size_t			ft_mappendb(t_m *m, t_byte b);
 size_t			ft_mcut(t_m *m, size_t offset, size_t len);
 void			*ft_m(t_m *m, size_t offset);
 
-void			ft_ainit(t_a *a, size_t sz, void *mem, size_t len, size_t cap);
+void			ft_ainit(t_a *a, size_t sz, void *mem, size_t cap);
 void			ft_ainitm(t_a *a, t_m *m);
 size_t			ft_aappend(t_a *a, void *elems, size_t count);
 size_t			ft_aappendm(t_a *a, t_m *m);
@@ -192,7 +202,7 @@ t_err			ft_dappend(t_d *d, t_byte *mem, size_t len);
 t_err			ft_dappendm(t_d *d, t_m *m);
 void			ft_dfree(t_d *d);
 
-t_err			ft_dainit(t_da *da, size_t sz, void *p, size_t len, size_t cp);
+t_err			ft_dainit(t_da *da, size_t sz, void *p, size_t len);
 void			ft_dainitm(t_da *da, t_m *m);
 t_err			ft_daexpand(t_da *da, size_t required);
 t_err			ft_daappend(t_da *da, void *elems, size_t count);
@@ -254,16 +264,16 @@ size_t			ft_vs_read_int(t_vs *vs, int *out);
 /*
 ** ctype
 */
-extern unsigned char	g_ctype_char_info[256];
+extern const unsigned char	g_ctype_char_info[256];
 
-# define IS_ALNUM(x) (g_ctype_char_info[(unsigned)(x)] & 1)
-# define IS_ALPHA(x) (g_ctype_char_info[(unsigned)(x)] & 2)
-# define IS_DIGIT(x) (g_ctype_char_info[(unsigned)(x)] & 4)
-# define IS_LOWER(x) (g_ctype_char_info[(unsigned)(x)] & 8)
-# define IS_PRINT(x) (g_ctype_char_info[(unsigned)(x)] & 16)
-# define IS_SPACE(x) (g_ctype_char_info[(unsigned)(x)] & 32)
-# define IS_UPPER(x) (g_ctype_char_info[(unsigned)(x)] & 64)
-# define IS_XDIGIT(x) (g_ctype_char_info[(unsigned)(x)] & 128)
+# define IS_ALNUM(x) (g_ctype_char_info[(unsigned char)(x)] & 1)
+# define IS_ALPHA(x) (g_ctype_char_info[(unsigned char)(x)] & 2)
+# define IS_DIGIT(x) (g_ctype_char_info[(unsigned char)(x)] & 4)
+# define IS_LOWER(x) (g_ctype_char_info[(unsigned char)(x)] & 8)
+# define IS_PRINT(x) (g_ctype_char_info[(unsigned char)(x)] & 16)
+# define IS_SPACE(x) (g_ctype_char_info[(unsigned char)(x)] & 32)
+# define IS_UPPER(x) (g_ctype_char_info[(unsigned char)(x)] & 64)
+# define IS_XDIGIT(x) (g_ctype_char_info[(unsigned char)(x)] & 128)
 
 # define IS_ASCII(x) ((char)(unsigned char)(x) >= 0)
 

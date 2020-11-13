@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dds_spread.c                                    :+:      :+:    :+:   */
+/*   ft_double.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/10 21:12:17 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/13 21:20:15 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/13 20:54:59 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/13 21:19:55 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_err			ft_dds_spread(t_dds *dds, char c, size_t len)
+int		ft_isinf(double f)
 {
-	t_err	error;
+	t_ieee754	ieee754;
 
-	error = E_OK;
-	while (error == E_OK && len > 0)
-	{
-		error = ft_ddsappendraw(dds, &c, 1);
-		len -= 1;
-	}
-	return (error);
+	ieee754.f = f;
+	return (((unsigned)(ieee754.u >> 32) & 0x7fffffff) == 0x7ff00000 &&
+			((unsigned)ieee754.u == 0));
+}
+
+int		ft_isnan(double f)
+{
+	t_ieee754	ieee754;
+
+	ieee754.f = f;
+	return (((unsigned)(ieee754.u >> 32) & 0x7fffffff) +
+			((unsigned)ieee754.u != 0) > 0x7ff00000);
 }

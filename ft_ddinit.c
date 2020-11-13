@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 19:55:29 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/10 20:08:15 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/13 21:10:47 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void			ft_ddinit(t_dd *dd)
 {
-	dd->da = &dd->_da;
-	ft_dainit(dd->da, sizeof(t_d), 0, 0, 0);
+	dd->da = &dd->local_da;
+	ft_dainit(dd->da, sizeof(t_d), NULL, 0);
 	dd->len = 0;
 	dd->ptr = 0;
 }

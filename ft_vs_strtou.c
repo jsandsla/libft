@@ -6,14 +6,14 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:11:01 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/11 17:05:59 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/13 21:18:46 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	own_strtou(const char *ptr, size_t n, t_uint *out,
-	size_t base, const char *sym)
+static	t_uint	own_strtou(const char *ptr, size_t n, size_t base,
+	const char *sym)
 {
 	size_t	len;
 	t_uint	num;
@@ -27,21 +27,23 @@ static	size_t	own_strtou(const char *ptr, size_t n, t_uint *out,
 		num += (t_uint)((size_t)ch - (size_t)sym);
 		len += 1;
 	}
-	*out = num;
-	return (len);
+	return (num);
 }
 
 size_t			ft_vs_strtou(t_vs *vs, t_uint *out, int base, const char *sym)
 {
 	const char	*ptr;
 	size_t		n;
+	size_t		i;
 
-	n = 0;
+	i = 0;
 	if (base >= 2 && base <= 16)
 	{
 		ptr = vs->ptr + vs->offset;
 		n = vs->len - vs->offset;
-		n = own_strtou(ptr, n, out, base, sym);
+		*out = own_strtou(ptr, n, base, sym);
+		while (i < n && ft_strnchr(sym, ptr[i], base))
+			i += 1;
 	}
-	return (n);
+	return (i);
 }

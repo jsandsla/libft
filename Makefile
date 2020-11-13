@@ -27,6 +27,7 @@ ft_next_powof2.c\
 ft_to_powof2.c\
 ft_max.c\
 ft_min.c\
+ft_double.c\
 ft_ctype.c
 OBJ=$(SRC:.c=.o)
 PART2_SRC=\
@@ -108,7 +109,7 @@ D_OBJ=$(D_SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c libft.h
-	cc -Wall -Werror -Wextra -c $< -o $@ -g
+	cc -Wall -Werror -Wextra -c $< -o $@ $(DEBUG)
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $?
