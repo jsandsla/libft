@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:05:15 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/13 21:08:28 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/14 00:23:28 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,13 @@ void			ft_sinitn(t_s *s, char *str, size_t n)
 void			ft_sinitm(t_s *s, t_m *m)
 {
 	s->m = m;
+}
+
+void			ft_sinitraw(t_s *s, void *mem, size_t cap)
+{
+	s->m = &s->local_m;
+	ft_minit(s->m, 1, mem, cap);
+	s->m->len = 0;
+	if (cap)
+		s->m->ptr[0] = '\0';
 }

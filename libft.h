@@ -186,6 +186,7 @@ void			*ft_a(t_a *a, size_t i);
 void			ft_sinit(t_s *s, char *str);
 void			ft_sinitn(t_s *s, char *str, size_t n);
 void			ft_sinitm(t_s *s, t_m *m);
+void			ft_sinitraw(t_s *s, void *mem, size_t cap);
 size_t			ft_sappend(t_s *s, const char *str);
 size_t			ft_sappendn(t_s *s, const char *str, size_t n);
 size_t			ft_sappendraw(t_s *s, const char *str, size_t n);
