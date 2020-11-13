@@ -59,6 +59,7 @@ D_SRC=\
 ft_minit.c\
 ft_mwrite.c\
 ft_mappend.c\
+ft_mmove.c\
 ft_mcut.c\
 ft_m.c\
 ft_ainit.c\
@@ -67,6 +68,7 @@ ft_aremove.c\
 ft_a.c\
 ft_sinit.c\
 ft_sappend.c\
+ft_smove.c\
 ft_scut.c\
 ft_sreverse.c\
 ft_s.c\
