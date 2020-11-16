@@ -132,6 +132,7 @@ typedef union	u_ieee754
 
 int				ft_isnan(double f);
 int				ft_isinf(double f);
+double			ft_modf(double f, double *i);
 
 /*
 ** make part2; dep: malloc, free, write;
