@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 05:03:23 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/17 05:39:01 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/17 05:46:56 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ double			ft_modf_rounded(double x, double *int_part, size_t precision)
 	double	fract_raised_and_rounded;
 	double	fract_raised_int;
 
-	power = precision ? 1.0 : ft_fpow(10.0, precision);
+	power = !precision ? 1.0 : ft_fpow(10.0, precision);
 	fract_part = ft_fabs(ft_modf(x, int_part));
 	fract_raised = fract_part * power;
 	if ((int)(ft_modf(fract_raised, &fract_raised_int) * 10) == 5)
