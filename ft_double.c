@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 20:54:59 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/17 05:20:49 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/17 06:02:14 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ int		ft_isnan(double f)
 			((unsigned)ieee754.u != 0) > 0x7ff00000);
 }
 
-double	ft_fpow(double num, size_t power)
+double	ft_fpow(double base, size_t power)
 {
-	while (power > 1)
+	double	num;
+
+	num = 1.0;
+	while (power > 0)
 	{
-		num *= num;
+		num *= base;
 		power -= 1;
 	}
 	return (num);
