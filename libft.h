@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/14 00:29:49 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/17 05:19:48 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,10 @@ typedef union	u_ieee754
 
 int				ft_isnan(double f);
 int				ft_isinf(double f);
+double			ft_fpow(double f, size_t power);
+double			ft_fabs(double f);
 double			ft_modf(double f, double *i);
+double			ft_modf_rounded(double f, double *i, size_t precision);
 
 /*
 ** make part2; dep: malloc, free, write;
