@@ -28,6 +28,7 @@ ft_to_powof2.c\
 ft_max.c\
 ft_min.c\
 ft_double.c\
+ft_modf.c\
 ft_ctype.c
 OBJ=$(SRC:.c=.o)
 PART2_SRC=\
