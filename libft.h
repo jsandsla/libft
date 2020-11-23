@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/17 05:19:48 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/18 04:57:53 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int				ft_isnan(double f);
 int				ft_isinf(double f);
 double			ft_fpow(double f, size_t power);
 double			ft_fabs(double f);
+int				ft_epsilon(double diff, double epsilon);
 double			ft_modf(double f, double *i);
 double			ft_modf_rounded(double f, double *i, size_t precision);
 

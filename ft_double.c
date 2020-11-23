@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 20:54:59 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/17 06:02:14 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/18 05:04:00 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,9 @@ double	ft_fabs(double num)
 	u.f = num;
 	u.u &= ~(1ull << 63);
 	return (u.f);
+}
+
+int		ft_epsilon(double l, double epsilon)
+{
+	return (l <= epsilon && l >= -epsilon);
 }

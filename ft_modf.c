@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 05:03:23 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/17 05:46:56 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/18 05:49:45 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ static	double	ceil(double n)
 	return (n + 1);
 }
 
+#include <stdio.h>
 static	double	round(double n)
 {
+	printf(":%f\n", n);
 	if ((int)(ft_modf(n, &n) * 10) >= 5)
 		n += 1;
 	return (n);
@@ -68,9 +70,9 @@ double			ft_modf_rounded(double x, double *int_part, size_t precision)
 	power = !precision ? 1.0 : ft_fpow(10.0, precision);
 	fract_part = ft_fabs(ft_modf(x, int_part));
 	fract_raised = fract_part * power;
-	if ((int)(ft_modf(fract_raised, &fract_raised_int) * 10) == 5)
+	if (ft_epsilon(ft_modf(fract_raised, &fract_raised_int) - 0.5, 0.000000000001))
 		fract_raised_and_rounded = (long)fract_raised_int & 1 ?
-			floor(fract_raised) : ceil(fract_raised);
+			ceil(fract_raised) : floor(fract_raised);
 	else
 		fract_raised_and_rounded = round(fract_raised);
 	if (fract_raised_and_rounded >= power)
