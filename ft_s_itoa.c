@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 08:35:33 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/24 09:16:22 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:20:31 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	ft_s_itoa(t_s *s, ssize_t n, unsigned base, const char *sym)
 	return (i);
 }
 
-size_t			ft_s_unsigned(t_s *s, size_t val)
+size_t	ft_s_unsigned(t_s *s, size_t val)
 {
 	size_t	len;
 
@@ -46,7 +46,7 @@ size_t			ft_s_unsigned(t_s *s, size_t val)
 	return (len);
 }
 
-size_t			ft_s_signed(t_s *s, ssize_t val)
+size_t	ft_s_signed(t_s *s, ssize_t val)
 {
 	size_t	len;
 
