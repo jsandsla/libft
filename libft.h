@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/18 04:57:53 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/24 09:31:26 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <stdint.h>
+# include <sys/types.h>
 
 # define E_OK 0
 # define E_UNKNOW -1
@@ -137,6 +138,7 @@ double			ft_fabs(double f);
 int				ft_epsilon(double diff, double epsilon);
 double			ft_modf(double f, double *i);
 double			ft_modf_rounded(double f, double *i, size_t precision);
+double			ft_modf_erounded(double x, double *int_part, size_t precision);
 
 /*
 ** make part2; dep: malloc, free, write;
@@ -202,6 +204,10 @@ size_t			ft_smove(t_s *s, void *mem, size_t cap);
 size_t			ft_scut(t_s *s, size_t offset, size_t len);
 void			ft_sreverse(t_s *s, size_t offset, size_t len);
 char			ft_s(t_s *s, size_t i);
+size_t			ft_s_utoa(t_s *s, size_t n, unsigned base, const char *sym);
+size_t			ft_s_itoa(t_s *s, ssize_t n, unsigned base, const char *sym);
+size_t			ft_s_unsigned(t_s *s, size_t val);
+size_t			ft_s_signed(t_s *s, ssize_t val);
 
 t_err			ft_dinit(t_d *d, t_byte *mem, size_t len);
 void			ft_dinitm(t_d *d, t_m *m);
@@ -268,6 +274,8 @@ size_t			ft_vs_read_int(t_vs *vs, int *out);
 # define FT_MAX(l, r) ((l) > (r) ? (l) : (r))
 # define FT_CLAMP(v, l, r) FT_MIN(r, FT_MAX(v, l))
 # define FT_USUB(l, r) ((l) <= (r) ? 0 : (l) - (r))
+# define FT_ABS(v) ((v) < 0 ? -(v) : (v))
+# define FT_SIGN(v) ((v) < 0 ? -1 : 1)
 
 /*
 ** ctype

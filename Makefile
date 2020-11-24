@@ -74,6 +74,7 @@ ft_smove.c\
 ft_scut.c\
 ft_sreverse.c\
 ft_s.c\
+ft_s_itoa.c\
 ft_dinit.c\
 ft_dexpand.c\
 ft_dappend.c\
