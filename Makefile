@@ -32,7 +32,7 @@ ft_modf.c\
 ft_modf_rounded.c\
 ft_ctype.c
 OBJ=$(SRC:.c=.o)
-PART2_SRC=\
+PART1_SRC=\
 ft_calloc.c\
 ft_strdup.c\
 ft_substr.c\
@@ -40,12 +40,14 @@ ft_strjoin.c\
 ft_strtrim.c\
 ft_split.c\
 ft_itoa.c\
-ft_strmapi.c\
+ft_strmapi.c
+PART1_OBJ=$(PART1_SRC:.c=.o)
+FD_SRC=\
 ft_putchar_fd.c\
 ft_putstr_fd.c\
 ft_putendl_fd.c\
 ft_putnbr_fd.c
-PART2_OBJ=$(PART2_SRC:.c=.o)
+FD_OBJ=$(FD_SRC:.c=.o)
 LIST_SRC=\
 ft_lstnew.c\
 ft_lstadd_front.c\
@@ -119,29 +121,28 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rc $(NAME) $?
 
-part2: $(NAME) part2_add
-part2_add: $(PART2_OBJ)
+part1: $(NAME)
+part1: $(PART1_OBJ)
 	ar rc $(NAME) $?
-	touch part2_add
 
-list: $(NAME) list_add
-list_add: $(LIST_OBJ)
+fd: $(NAME)
+fd: $(FD_OBJ)
 	ar rc $(NAME) $?
-	touch list_add
 
-d: $(NAME) d_add
-d_add: $(D_OBJ)
+list: $(NAME)
+list: $(LIST_OBJ)
 	ar rc $(NAME) $?
-	touch d_add
+
+d: $(NAME)
+d: $(D_OBJ)
+	ar rc $(NAME) $?
 
 clean:
 	rm -rf $(OBJ)
-	rm -rf $(PART2_OBJ)
+	rm -rf $(PART1_OBJ)
+	rm -rf $(FD_OBJ)
 	rm -rf $(LIST_OBJ)
 	rm -rf $(D_OBJ)
-	rm -rf part2_add
-	rm -rf list_add
-	rm -rf d_add
 
 fclean: clean
 	rm -rf $(NAME)
