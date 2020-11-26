@@ -30,6 +30,7 @@ ft_min.c\
 ft_double.c\
 ft_modf.c\
 ft_modf_rounded.c\
+ft_sqrt.c\
 ft_ctype.c
 OBJ=$(SRC:.c=.o)
 PART1_SRC=\
@@ -112,6 +113,23 @@ ft_vs_strtol.c\
 ft_vs_read_uint.c\
 ft_vs_read_int.c
 D_OBJ=$(D_SRC:.c=.o)
+VMATH_SRC=\
+ft_usev3.c\
+ft_usev4.c\
+ft_m3.c\
+ft_m4.c\
+ft_make_v.c\
+ft_invm4.c\
+ft_opv3.c\
+ft_opvsv3.c\
+ft_opv4.c\
+ft_opvsv4.c\
+ft_identity_m.c
+VMATH_OBJ=$(VMATH_SRC:.c=.o)
+VMATH_EXT_SRC=\
+ft_make_m3rot.c\
+ft_extv.c
+VMATH_EXT_OBJ=$(VMATH_EXT_SRC:.c=.o)
 
 all: $(NAME)
 
@@ -137,12 +155,22 @@ d: $(NAME)
 d: $(D_OBJ)
 	ar rc $(NAME) $?
 
+vmath: $(NAME)
+vmath: $(VMATH_OBJ)
+	ar rc $(NAME) $?
+
+vmath_ext: $(NAME)
+vmath_ext: $(VMATH_EXT_OBJ) $(VMATH_OBJ)
+	ar rc $(NAME) $?
+
 clean:
 	rm -rf $(OBJ)
 	rm -rf $(PART1_OBJ)
 	rm -rf $(FD_OBJ)
 	rm -rf $(LIST_OBJ)
 	rm -rf $(D_OBJ)
+	rm -rf $(VMATH_OBJ)
+	rm -rf $(VMATH_EXT_OBJ)
 
 fclean: clean
 	rm -rf $(NAME)

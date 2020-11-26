@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/24 09:31:26 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/26 16:06:52 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,36 @@ typedef struct	s_view_string
 	const char	*ptr;
 }				t_vs;
 
+typedef	struct	s_v3
+{
+	float	x;
+	float	y;
+	float	z;
+}				t_v3;
+
+typedef struct	s_v4
+{
+	float	x;
+	float	y;
+	float	z;
+	float	w;
+}				t_v4;
+
+typedef struct	s_m3
+{
+	t_v3	r0;
+	t_v3	r1;
+	t_v3	r2;
+}				t_m3;
+
+typedef struct	s_m4
+{
+	t_v4	r0;
+	t_v4	r1;
+	t_v4	r2;
+	t_v4	r3;
+}				t_m4;
+
 /*
 ** make; dep: -;
 */
@@ -139,6 +169,8 @@ int				ft_epsilon(double diff, double epsilon);
 double			ft_modf(double f, double *i);
 double			ft_modf_rounded(double f, double *i, size_t precision);
 double			ft_modf_erounded(double x, double *int_part, size_t precision);
+double			ft_sqrt(double x);
+float			ft_sqrtf(float x);
 
 /*
 ** make part2; dep: malloc, free, write;
@@ -266,6 +298,84 @@ size_t			ft_vs_read_int(t_vs *vs, int *out);
 
 # define FT_VS_SYMX "0123456789abcdef"
 # define FT_VS_SYMBIGX "0123456789ABCDEF"
+
+/*
+** make vmath; dep: -
+*/
+
+# define FT_UP_VECTOR ((t_v3){0, 1, 0})
+
+t_v3	ft_make_v3(float x, float y, float z);
+t_v4	ft_make_v4(float x, float y, float z, float w);
+t_m3	ft_make_m3(t_v3 r0, t_v3 r1, t_v3 r2);
+t_m4	ft_make_m4(t_v4 r0, t_v4 r1, t_v4 r2, t_v4 r3);
+
+void	ft_identity_m3(t_m3 *m);
+void	ft_identity_m4(t_m4 *m);
+
+void	ft_mul_v3(t_v3 *l, t_v3 *r, t_v3 *out);
+void	ft_div_v3(t_v3 *l, t_v3 *r, t_v3 *out);
+void	ft_add_v3(t_v3 *l, t_v3 *r, t_v3 *out);
+void	ft_sub_v3(t_v3 *l, t_v3 *r, t_v3 *out);
+
+void	ft_mulvs_v3(t_v3 *l, float r, t_v3 *out);
+void	ft_divvs_v3(t_v3 *l, float r, t_v3 *out);
+void	ft_addvs_v3(t_v3 *l, float r, t_v3 *out);
+void	ft_subvs_v3(t_v3 *l, float r, t_v3 *out);
+void	ft_subsv_v3(float l, t_v3 *r, t_v3 *out);
+
+float	ft_dot_v3(t_v3 *l, t_v3 *r);
+void	ft_cross_v3_to(t_v3 *l, t_v3 *r, t_v3 *out);
+void	ft_lerp_v3(t_v3 *l, t_v3 *r, float t, t_v3 *out);
+float	ft_length_v3(t_v3 *l);
+void	ft_normalize_v3(t_v3 *l);
+
+void	ft_mul_v4(t_v4 *l, t_v4 *r, t_v4 *out);
+void	ft_div_v4(t_v4 *l, t_v4 *r, t_v4 *out);
+void	ft_add_v4(t_v4 *l, t_v4 *r, t_v4 *out);
+void	ft_sub_v4(t_v4 *l, t_v4 *r, t_v4 *out);
+
+void	ft_mulvs_v4(t_v4 *l, float r, t_v4 *out);
+void	ft_divvs_v4(t_v4 *l, float r, t_v4 *out);
+void	ft_addvs_v4(t_v4 *l, float r, t_v4 *out);
+void	ft_subvs_v4(t_v4 *l, float r, t_v4 *out);
+void	ft_subsv_v4(float l, t_v4 *r, t_v4 *out);
+
+float	ft_dot_v4(t_v4 *l, t_v4 *r);
+void	ft_lerp_v4(t_v4 *l, t_v4 *r, float t, t_v4 *out);
+float	ft_length_v4(t_v4 *l);
+void	ft_normalize_v4(t_v4 *l);
+
+void	ft_mul_m3_to(t_m3 *l, t_m3 *r, t_m3 *out);
+void	ft_mul_vm3_to(t_v3 *l, t_m3 *r, t_v3 *out);
+void	ft_transpose_m3(t_m3 *l);
+void	ft_transpose_m3_to(t_m3 *l, t_m3 *out);
+
+void	ft_mul_m4_to(t_m4 *l, t_m4 *r, t_m4 *out);
+void	ft_mul_m4rot_to(t_m3 *l, t_m4 *r, t_m4 *out);
+void	ft_mul_vm4_to(t_v4 *l, t_m4 *r, t_v4 *out);
+void	ft_transpose_m4(t_m4 *m);
+void	ft_transpose_m4_to(t_m4 *l, t_m4 *out);
+
+void	ft_translate_m4(t_m4 *m, t_v3 *off);
+void	ft_scale_m4(t_m4 *m, float s);
+
+void	ft_inv_m4_to(t_m4 *l, t_m4 *out);
+void	ft_inv_m4(t_m4 *mat);
+
+/*
+** make vmath_ext; dep: vmath, math.h (cosf,sinf,sqrtf)
+*/
+
+float	ft_ext_length_v3(t_v3 *l);
+void	ft_ext_normalize_v3(t_v3 *l);
+float	ft_ext_length_v4(t_v4 *l);
+void	ft_ext_normalize_v4(t_v4 *l);
+
+void	ft_make_m3rot_x(t_m3 *m, float angle);
+void	ft_make_m3rot_y(t_m3 *m, float angle);
+void	ft_make_m3rot_z(t_m3 *m, float angle);
+void	ft_make_m3rot_dir(t_m3 *m, t_v3 *dir);
 
 /*
 ** inline;
