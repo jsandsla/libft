@@ -115,6 +115,10 @@ ft_vs_strtol.c\
 ft_vs_read_uint.c\
 ft_vs_read_int.c
 D_OBJ=$(D_SRC:.c=.o)
+B_SRC=\
+ft_b.c\
+ft_b2.c
+B_OBJ=$(B_SRC:.c=.o)
 VMATH_SRC=\
 ft_usev3.c\
 ft_usev4.c\
@@ -157,6 +161,10 @@ d: $(NAME)
 d: $(D_OBJ)
 	ar rc $(NAME) $?
 
+b: $(NAME)
+b: $(B_OBJ)
+	ar rc $(NAME) $?
+
 vmath: $(NAME)
 vmath: $(VMATH_OBJ)
 	ar rc $(NAME) $?
@@ -171,6 +179,7 @@ clean:
 	rm -rf $(FD_OBJ)
 	rm -rf $(LIST_OBJ)
 	rm -rf $(D_OBJ)
+	rm -rf $(B_OBJ)
 	rm -rf $(VMATH_OBJ)
 	rm -rf $(VMATH_EXT_OBJ)
 

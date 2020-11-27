@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 12:10:55 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 13:00:51 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,25 @@ size_t			ft_vs_read_int(t_vs *vs, int *out);
 
 # define FT_VS_SYMX "0123456789abcdef"
 # define FT_VS_SYMBIGX "0123456789ABCDEF"
+
+/*
+** make b; dep: malloc free
+*/
+int				ft_blen(void *ptr);
+int				ft_bcap(void *ptr);
+int				ft_bexpand(void *pptr, int required);
+int				ft_bappend(void *pptr, void *elem, int sz);
+void			*ft_bnew(void *pptr, int sz);
+void			ft_bfree(void *pptr);
+t_m				ft_b_to_m(void *ptr, int sz);
+
+# define FT_BLEN(ptr) (ft_blen(ptr) / sizeof(*(ptr)))
+# define FT_BCAP(ptr) (ft_bcap(ptr) / sizeof(*(ptr)))
+# define FT_BEXPAND(p, r) ft_bexpand((void *)&(p), (r) * sizeof(*(p)))
+# define FT_BAPPEND(p, e) ft_bappend((void *)&(p), e, sizeof(*(p)))
+# define FT_BNEW(ptr) ft_bnew((void *)&(ptr), sizeof(*(ptr)))
+# define FT_BFREE(ptr) ft_bfree((void *)&(ptr))
+# define FT_B_TO_M(ptr) ft_b_to_m(ptr, sizeof(*(ptr)))
 
 /*
 ** make vmath; dep: -
