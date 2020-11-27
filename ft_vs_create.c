@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vscreate.c                                      :+:      :+:    :+:   */
+/*   ft_vs_create.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 15:37:17 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/10 21:12:21 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:36:24 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vs			ft_vscreate(const char *str, size_t len)
+t_vs			ft_vs_create(const char *str, size_t len)
 {
 	t_vs	vs;
 
@@ -22,7 +22,7 @@ t_vs			ft_vscreate(const char *str, size_t len)
 	return (vs);
 }
 
-t_vs			ft_vscreatestr(const char *str)
+t_vs			ft_vs_create_str(const char *str)
 {
 	t_vs	vs;
 
@@ -32,7 +32,7 @@ t_vs			ft_vscreatestr(const char *str)
 	return (vs);
 }
 
-t_vs			ft_vscreates(t_s *s, size_t offset, size_t len)
+t_vs			ft_vs_create_s(t_s *s, size_t offset, size_t len)
 {
 	t_vs	vs;
 

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 13:00:51 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 16:45:23 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,10 +190,10 @@ char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 */
 void			ft_putchar_fd(char c, int fd);
 void			ft_putchar(char c);
-void			ft_putstr_fd(char *s, int fd);
-void			ft_putstr(char *s);
-void			ft_putendl_fd(char *s, int fd);
-void			ft_putendl(char *s);
+void			ft_putstr_fd(const char *s, int fd);
+void			ft_putstr(const char *s);
+void			ft_putendl_fd(const char *s, int fd);
+void			ft_putendl(const char *s);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putnbr(int n);
 
@@ -293,24 +293,39 @@ void			ft_ddsfree(t_dds *dds);
 size_t			ft_dds_len(t_dds *dds);
 t_err			ft_dds_spread(t_dds *dds, char c, size_t len);
 
-t_vs			ft_vscreate(const char *str, size_t len);
-t_vs			ft_vscreatestr(const char *str);
-t_vs			ft_vscreates(t_s *s, size_t offset, size_t len);
-t_vs			ft_vssub(t_vs *vs, size_t offset, size_t len);
-char			ft_vsinc(t_vs *vs, size_t offset);
-char			ft_vsincif(t_vs *vs, char c, size_t offset);
+/*
+** make vs; dep: -;
+*/
+
+t_vs			ft_vs_create(const char *str, size_t len);
+t_vs			ft_vs_create_str(const char *str);
+t_vs			ft_vs_create_s(t_s *s, size_t offset, size_t len);
+t_vs			ft_vs_sub(t_vs *vs, size_t offset, size_t len);
+char			ft_vs_inc(t_vs *vs, size_t offset);
+char			ft_vs_inc_if(t_vs *vs, char c);
+char			ft_vs_inc_if_str(t_vs *vs, char *str);
+const char		*ft_vs_next(t_vs *vs);
+const char		*ft_vs_next_if(t_vs *vs, char c);
+const char		*ft_vs_next_if_str(t_vs *vs, char *str);
 char			ft_vs(t_vs *vs, size_t offset);
-void			ft_vsreset(t_vs *vs);
+void			ft_vs_reset(t_vs *vs);
 size_t			ft_vs_strtou(t_vs *vs, t_uint *out, int base, const char *sym);
 size_t			ft_vs_strtol(t_vs *vs, int *out, int base, const char *sym);
+size_t			ft_vs_strtod(t_vs *vs, double *out);
 size_t			ft_vs_read_uint(t_vs *vs, t_uint *out);
 size_t			ft_vs_read_int(t_vs *vs, int *out);
+size_t			ft_vs_read_int_unsign(t_vs *vs, int *out);
+size_t			ft_vs_read_double(t_vs *vs, double *out);
+size_t			ft_vs_read_float(t_vs *vs, float *out);
+void			ft_vs_skip_ws(t_vs *vs);
+void			ft_vs_skip_word(t_vs *vs);
+int				ft_vs_str(t_vs *vs, const char *str);
 
 # define FT_VS_SYMX "0123456789abcdef"
 # define FT_VS_SYMBIGX "0123456789ABCDEF"
 
 /*
-** make b; dep: malloc free
+** make b; dep: malloc, free;
 */
 int				ft_blen(void *ptr);
 int				ft_bcap(void *ptr);
@@ -320,8 +335,8 @@ void			*ft_bnew(void *pptr, int sz);
 void			ft_bfree(void *pptr);
 t_m				ft_b_to_m(void *ptr, int sz);
 
-# define FT_BLEN(ptr) (ft_blen(ptr) / sizeof(*(ptr)))
-# define FT_BCAP(ptr) (ft_bcap(ptr) / sizeof(*(ptr)))
+# define FT_BLEN(ptr) ((int)(ft_blen(ptr) / sizeof(*(ptr))))
+# define FT_BCAP(ptr) ((int)(ft_bcap(ptr) / sizeof(*(ptr))))
 # define FT_BEXPAND(p, r) ft_bexpand((void *)&(p), (r) * sizeof(*(p)))
 # define FT_BAPPEND(p, e) ft_bappend((void *)&(p), e, sizeof(*(p)))
 # define FT_BNEW(ptr) ft_bnew((void *)&(ptr), sizeof(*(ptr)))

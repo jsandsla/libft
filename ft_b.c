@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 12:32:12 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 13:17:17 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 13:57:19 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int		ft_bappend(void *pptr, void *elem, int sz)
 		ptr = *(void **)pptr;
 		if (elem)
 			ft_memcpy((t_byte *)ptr + ft_blen(ptr), elem, sz);
+		else
+			ft_memset((t_byte *)ptr + ft_blen(ptr), 0, sz);
 		((int *)ptr)[-1] += sz;
 	}
 	return (success);

@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vsinc.c                                         :+:      :+:    :+:   */
+/*   ft_vs_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 16:00:36 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/11 17:06:26 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/27 16:09:43 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/27 16:13:49 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			ft_vsinc(t_vs *vs, size_t offset)
+int		ft_vs_str(t_vs *vs, const char *str)
 {
-	char	prev;
+	int		result;
+	size_t	len;
 
-	prev = ft_vs(vs, 0);
-	offset = FT_MIN(offset, vs->len - vs->offset);
-	vs->offset += offset;
-	return (prev);
-}
-
-char			ft_vsincif(t_vs *vs, char c, size_t offset)
-{
-	if (ft_vs(vs, 0) == c)
-		c = ft_vsinc(vs, offset);
-	else
-		c = 0;
-	return (c);
+	len = ft_strnlen(str, vs->len - vs->offset);
+	result = 0;
+	if (!str[len])
+		result = ft_strncmp(vs->ptr + vs->offset, str, len);
+	return (result);
 }

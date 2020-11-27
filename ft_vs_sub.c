@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vs_read_uint.c                                  :+:      :+:    :+:   */
+/*   ft_vs_sub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 20:47:38 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/11 17:05:09 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/04 15:49:40 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/27 15:36:59 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t			ft_vs_read_uint(t_vs *vs, t_uint *out)
+t_vs			ft_vs_sub(t_vs *vs, size_t offset, size_t len)
 {
-	size_t	n;
+	t_vs	newvs;
 
-	n = ft_vs_strtou(vs, out, 10, FT_VS_SYMX);
-	ft_vsinc(vs, n);
-	return (n);
+	offset = FT_MIN(offset, vs->len - vs->offset);
+	len = FT_MIN(len, vs->len - (vs->offset + offset));
+	newvs.ptr = vs->ptr + offset;
+	newvs.len = len;
+	newvs.offset = 0;
+	return (newvs);
 }

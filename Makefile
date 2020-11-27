@@ -104,7 +104,9 @@ ft_ddsappend.c\
 ft_dds.c\
 ft_ddsfree.c\
 ft_dds_len.c\
-ft_dds_spread.c\
+ft_dds_spread.c
+D_OBJ=$(D_SRC:.c=.o)
+VS_SRC=\
 ft_vscreate.c\
 ft_vssub.c\
 ft_vsinc.c\
@@ -114,7 +116,7 @@ ft_vs_strtou.c\
 ft_vs_strtol.c\
 ft_vs_read_uint.c\
 ft_vs_read_int.c
-D_OBJ=$(D_SRC:.c=.o)
+VS_OBJ=$(VS_SRC:.c=.o)
 B_SRC=\
 ft_b.c\
 ft_b2.c
@@ -161,6 +163,10 @@ d: $(OBJ) $(D_OBJ)
 	ar rc $(NAME) $?
 	touch d
 
+vs: $(OBJ) $(VS_OBJ)
+	ar rc $(NAME) $?
+	touch vs
+
 b: $(OBJ) $(B_OBJ)
 	ar rc $(NAME) $?
 	touch b
@@ -179,6 +185,7 @@ clean:
 	rm -rf $(FD_OBJ)
 	rm -rf $(LIST_OBJ)
 	rm -rf $(D_OBJ)
+	rm -rf $(VS_OBJ)
 	rm -rf $(B_OBJ)
 	rm -rf $(VMATH_OBJ)
 	rm -rf $(VMATH_EXT_OBJ)
@@ -186,6 +193,7 @@ clean:
 	rm -rf fd
 	rm -rf list
 	rm -rf d
+	rm -rf vs
 	rm -rf b
 	rm -rf vmath
 	rm -rf vmath_ext
