@@ -6,50 +6,39 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:32:23 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/26 17:15:09 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:10:41 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_v3	ft_make_v3(float x, float y, float z)
+void	ft_make_v3(t_v3 v, float x, float y, float z)
 {
-	t_v3	val;
-
-	val.x = x;
-	val.y = y;
-	val.z = z;
-	return (val);
+	v[0] = x;
+	v[1] = y;
+	v[2] = z;
 }
 
-t_v4	ft_make_v4(float x, float y, float z, float w)
+void	ft_make_v4(t_v4 v, float x, float y, float z)
 {
-	t_v4	val;
-
-	val.x = x;
-	val.y = y;
-	val.z = z;
-	val.w = w;
-	return (val);
+	v[0] = x;
+	v[1] = y;
+	v[2] = z;
+	v[3] = 0;
 }
 
-t_m3	ft_make_m3(t_v3 r0, t_v3 r1, t_v3 r2)
+void	ft_make_m3(t_m3 m, t_v3 c0, t_v3 c1, t_v3 c2)
 {
-	t_m3	val;
-
-	val.r0 = r0;
-	val.r1 = r1;
-	val.r2 = r2;
-	return (val);
+	ft_make_v3(m[0], c0[0], c0[1], c0[2]);
+	ft_make_v3(m[1], c1[0], c1[1], c1[2]);
+	ft_make_v3(m[2], c2[0], c2[1], c2[2]);
 }
 
-t_m4	ft_make_m4(t_v4 r0, t_v4 r1, t_v4 r2, t_v4 r3)
+void	ft_make_m4(t_m4 m, t_v4 c0, t_v4 c1, t_v4 c2)
 {
-	t_m4	val;
-
-	val.r0 = r0;
-	val.r1 = r1;
-	val.r2 = r2;
-	val.r3 = r3;
-	return (val);
+	ft_make_v4(m[0], c0[0], c0[1], c0[2]);
+	ft_make_v4(m[1], c1[0], c1[1], c1[2]);
+	ft_make_v4(m[2], c2[0], c2[1], c2[2]);
+	ft_make_v4(m[3], 0, 0, 0);
+	m[3][3] = 1;
 }

@@ -107,15 +107,18 @@ ft_dds_len.c\
 ft_dds_spread.c
 D_OBJ=$(D_SRC:.c=.o)
 VS_SRC=\
-ft_vscreate.c\
-ft_vssub.c\
-ft_vsinc.c\
+ft_vs_create.c\
+ft_vs_sub.c\
+ft_vs_inc.c\
 ft_vs.c\
-ft_vsreset.c\
+ft_vs_reset.c\
 ft_vs_strtou.c\
 ft_vs_strtol.c\
-ft_vs_read_uint.c\
-ft_vs_read_int.c
+ft_vs_strtod.c\
+ft_vs_str.c\
+ft_vs_read.c\
+ft_vs_skip.c\
+ft_vs_next.c
 VS_OBJ=$(VS_SRC:.c=.o)
 B_SRC=\
 ft_b.c\
@@ -139,6 +142,8 @@ ft_make_m3rot.c\
 ft_extv.c
 VMATH_EXT_OBJ=$(VMATH_EXT_SRC:.c=.o)
 
+PARTS=part1 fd list d vs b vmath vmath_ext
+
 all: $(NAME)
 
 %.o: %.c libft.h
@@ -146,6 +151,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $?
+
+parts: $(PARTS)
 
 part1: $(OBJ) $(PART1_OBJ)
 	ar rc $(NAME) $?
@@ -189,14 +196,7 @@ clean:
 	rm -rf $(B_OBJ)
 	rm -rf $(VMATH_OBJ)
 	rm -rf $(VMATH_EXT_OBJ)
-	rm -rf part1
-	rm -rf fd
-	rm -rf list
-	rm -rf d
-	rm -rf vs
-	rm -rf b
-	rm -rf vmath
-	rm -rf vmath_ext
+	rm -rf $(PARTS)
 
 fclean: clean
 	rm -rf $(NAME)

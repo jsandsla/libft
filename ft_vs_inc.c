@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:00:36 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 15:37:48 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:14:50 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char			ft_vs_inc_if(t_vs *vs, char c)
 
 char			ft_vs_inc_if_str(t_vs *vs, char *str)
 {
+	char c;
+
 	if (ft_vs_str(vs, str))
 		c = ft_vs_inc(vs, ft_strlen(str));
 	else

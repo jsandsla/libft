@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:31:41 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 16:01:42 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:16:02 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ft_vs_next_if(t_vs *vs, char c)
 	return (success);
 }
 
-const char		*ft_vs_next_if_str(t_vs *vs, char *str)
+int		ft_vs_next_if_str(t_vs *vs, char *str)
 {
 	int		success;
 

@@ -6,59 +6,59 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:57:10 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/26 15:29:07 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:10:01 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_mul_m3_to(t_m3 *l, t_m3 *r, t_m3 *out)
+void	ft_mul_m3_to(t_m3 l, t_m3 r, t_m3 out)
 {
-	out->r0.x = l->r0.x * r->r0.x + l->r0.y * r->r1.x + l->r0.z * r->r2.x;
-	out->r0.y = l->r0.x * r->r0.y + l->r0.y * r->r1.y + l->r0.z * r->r2.y;
-	out->r0.z = l->r0.x * r->r0.z + l->r0.y * r->r1.z + l->r0.z * r->r2.z;
-	out->r1.x = l->r1.x * r->r0.x + l->r1.y * r->r1.x + l->r1.z * r->r2.x;
-	out->r1.y = l->r1.x * r->r0.y + l->r1.y * r->r1.y + l->r1.z * r->r2.y;
-	out->r1.z = l->r1.x * r->r0.z + l->r1.y * r->r1.z + l->r1.z * r->r2.z;
-	out->r2.x = l->r2.x * r->r0.x + l->r2.y * r->r1.x + l->r2.z * r->r2.x;
-	out->r2.y = l->r2.x * r->r0.y + l->r2.y * r->r1.y + l->r2.z * r->r2.y;
-	out->r2.z = l->r2.x * r->r0.z + l->r2.y * r->r1.z + l->r2.z * r->r2.z;
+	out[0][0] = l[0][0] * r[0][0] + l[1][0] * r[0][1] + l[2][0] * r[0][2];
+	out[0][1] = l[0][1] * r[0][0] + l[1][1] * r[0][1] + l[2][1] * r[0][2];
+	out[0][2] = l[0][2] * r[0][0] + l[1][2] * r[0][1] + l[2][2] * r[0][2];
+	out[1][0] = l[0][0] * r[1][0] + l[1][0] * r[1][1] + l[2][0] * r[1][2];
+	out[1][1] = l[0][1] * r[1][0] + l[1][1] * r[1][1] + l[2][1] * r[1][2];
+	out[1][2] = l[0][2] * r[1][0] + l[1][2] * r[1][1] + l[2][2] * r[1][2];
+	out[2][0] = l[0][0] * r[2][0] + l[1][0] * r[2][1] + l[2][0] * r[2][2];
+	out[2][1] = l[0][1] * r[2][0] + l[1][1] * r[2][1] + l[2][1] * r[2][2];
+	out[2][2] = l[0][2] * r[2][0] + l[1][2] * r[2][1] + l[2][2] * r[2][2];
 }
 
-void	ft_mul_vm3_to(t_v3 *l, t_m3 *r, t_v3 *out)
+void	ft_mul_vm3_to(t_m3 l, t_v3 r, t_v3 out)
 {
-	out->x = l->x * r->r0.x + l->y * r->r1.x + l->z * r->r2.x;
-	out->y = l->x * r->r0.y + l->y * r->r1.y + l->z * r->r2.y;
-	out->z = l->x * r->r0.z + l->y * r->r1.z + l->z * r->r2.z;
+	out[0] = l[0][0] * r[0] + l[1][0] * r[1] + l[2][0] * r[2];
+	out[1] = l[0][1] * r[0] + l[1][1] * r[1] + l[2][1] * r[2];
+	out[2] = l[0][2] * r[0] + l[1][2] * r[1] + l[2][2] * r[2];
 }
 
-void	ft_transpose_m3(t_m3 *l)
+void	ft_transpose_m3(t_m3 l)
 {
 	t_m3	t;
 
-	t.r1.x = l->r0.y;
-	t.r2.x = l->r0.z;
-	t.r0.y = l->r1.x;
-	t.r2.y = l->r1.z;
-	t.r0.z = l->r2.x;
-	t.r1.z = l->r2.y;
-	l->r1.x = t.r1.x;
-	l->r2.x = t.r2.x;
-	l->r0.y = t.r0.y;
-	l->r2.y = t.r2.y;
-	l->r0.z = t.r0.z;
-	l->r1.z = t.r1.z;
+	t[0][1] = l[1][0];
+	t[0][2] = l[2][0];
+	t[1][0] = l[0][1];
+	t[1][2] = l[2][1];
+	t[2][0] = l[0][2];
+	t[2][1] = l[1][2];
+	l[0][1] = t[0][1];
+	l[0][2] = t[0][2];
+	l[1][0] = t[1][0];
+	l[1][2] = t[1][2];
+	l[2][0] = t[2][0];
+	l[2][1] = t[2][1];
 }
 
-void	ft_transpose_m3_to(t_m3 *l, t_m3 *out)
+void	ft_transpose_m3_to(t_m3 l, t_m3 out)
 {
-	out->r0.x = l->r0.x;
-	out->r1.x = l->r0.y;
-	out->r2.x = l->r0.z;
-	out->r0.y = l->r1.x;
-	out->r1.y = l->r1.y;
-	out->r2.y = l->r1.z;
-	out->r0.z = l->r2.x;
-	out->r1.z = l->r2.y;
-	out->r2.z = l->r2.z;
+	out[0][0] = l[0][0];
+	out[0][1] = l[1][0];
+	out[0][2] = l[2][0];
+	out[1][0] = l[0][1];
+	out[1][1] = l[1][1];
+	out[1][2] = l[2][1];
+	out[2][0] = l[0][2];
+	out[2][1] = l[1][2];
+	out[2][2] = l[2][2];
 }

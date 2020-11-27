@@ -6,39 +6,39 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:43:45 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/26 15:50:04 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:00:56 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-float	ft_dot_v3(t_v3 *l, t_v3 *r)
+float	ft_dot_v3(t_v3 l, t_v3 r)
 {
 	float	result;
 
-	result = l->x * r->x + l->y * r->y + l->z * r->z;
+	result = l[0] * r[0] + l[1] * r[1] + l[2] * r[2];
 	return (result);
 }
 
-void	ft_cross_v3(t_v3 *l, t_v3 *r, t_v3 *out)
+void	ft_cross_v3(t_v3 l, t_v3 r, t_v3 out)
 {
-	out->x = l->y * r->z - l->z * r->y;
-	out->y = l->z * r->x - l->x * r->z;
-	out->z = l->x * r->y - l->y * r->x;
+	out[0] = l[1] * r[2] - l[2] * r[1];
+	out[1] = l[2] * r[0] - l[0] * r[2];
+	out[2] = l[0] * r[1] - l[1] * r[0];
 }
 
-void	ft_lerp_v3(t_v3 *l, t_v3 *r, float t, t_v3 *out)
+void	ft_lerp_v3(t_v3 l, t_v3 r, float t, t_v3 out)
 {
-	out->x = l->x * (1 - t) + r->x * t;
-	out->y = l->y * (1 - t) + r->y * t;
-	out->z = l->z * (1 - t) + r->z * t;
+	out[0] = l[0] * (1 - t) + r[0] * t;
+	out[1] = l[1] * (1 - t) + r[1] * t;
+	out[2] = l[2] * (1 - t) + r[2] * t;
 }
 
-float	ft_length_v3(t_v3 *l)
+float	ft_length_v3(t_v3 l)
 {
 	float	dot;
 
-	dot = l->x * l->x + l->y * l->y + l->z * l->z;
+	dot = l[0] * l[0] + l[1] * l[1] + l[2] * l[2];
 	if (dot >= 0.0000001f)
 		dot = ft_sqrtf(dot);
 	else
@@ -46,7 +46,7 @@ float	ft_length_v3(t_v3 *l)
 	return (dot);
 }
 
-void	ft_normalize_v3(t_v3 *l)
+void	ft_normalize_v3(t_v3 l)
 {
 	float	len;
 
@@ -54,5 +54,5 @@ void	ft_normalize_v3(t_v3 *l)
 	if (len > 0)
 		ft_divvs_v3(l, len, l);
 	else
-		*l = (t_v3){0, 0, 0};
+		ft_make_v3(l, 0, 0, 0);
 }

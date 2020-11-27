@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 16:45:23 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:15:47 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,35 +94,10 @@ typedef struct	s_view_string
 	const char	*ptr;
 }				t_vs;
 
-typedef	struct	s_v3
-{
-	float	x;
-	float	y;
-	float	z;
-}				t_v3;
-
-typedef struct	s_v4
-{
-	float	x;
-	float	y;
-	float	z;
-	float	w;
-}				t_v4;
-
-typedef struct	s_m3
-{
-	t_v3	r0;
-	t_v3	r1;
-	t_v3	r2;
-}				t_m3;
-
-typedef struct	s_m4
-{
-	t_v4	r0;
-	t_v4	r1;
-	t_v4	r2;
-	t_v4	r3;
-}				t_m4;
+typedef float	t_v3[3];
+typedef float	t_v4[4];
+typedef float	t_m3[3][3];
+typedef float	t_m4[4][4];
 
 /*
 ** make; dep: -;
@@ -304,9 +279,9 @@ t_vs			ft_vs_sub(t_vs *vs, size_t offset, size_t len);
 char			ft_vs_inc(t_vs *vs, size_t offset);
 char			ft_vs_inc_if(t_vs *vs, char c);
 char			ft_vs_inc_if_str(t_vs *vs, char *str);
-const char		*ft_vs_next(t_vs *vs);
-const char		*ft_vs_next_if(t_vs *vs, char c);
-const char		*ft_vs_next_if_str(t_vs *vs, char *str);
+int				ft_vs_next(t_vs *vs);
+int				ft_vs_next_if(t_vs *vs, char c);
+int				ft_vs_next_if_str(t_vs *vs, char *str);
 char			ft_vs(t_vs *vs, size_t offset);
 void			ft_vs_reset(t_vs *vs);
 size_t			ft_vs_strtou(t_vs *vs, t_uint *out, int base, const char *sym);
@@ -347,79 +322,108 @@ t_m				ft_b_to_m(void *ptr, int sz);
 ** make vmath; dep: -
 */
 
-# define FT_UP_VECTOR ((t_v3){0, 1, 0})
+#define FT_E         2.71828182845904523536028747135266250
+#define FT_LOG2E     1.44269504088896340735992468100189214
+#define FT_LOG10E    0.434294481903251827651128918916605082
+#define FT_LN2       0.693147180559945309417232121458176568
+#define FT_LN10      2.30258509299404568401799145468436421
+#define FT_PI        3.14159265358979323846264338327950288
+#define FT_PI_2      1.57079632679489661923132169163975144
+#define FT_PI_4      0.785398163397448309615660845819875721
+#define FT_1_PI      0.318309886183790671537767526745028724
+#define FT_2_PI      0.636619772367581343075535053490057448
+#define FT_2_SQRTPI  1.12837916709551257389615890312154517
+#define FT_SQRT2     1.41421356237309504880168872420969808
+#define FT_SQRT1_2   0.707106781186547524400844362104849039
 
-t_v3	ft_make_v3(float x, float y, float z);
-t_v4	ft_make_v4(float x, float y, float z, float w);
-t_m3	ft_make_m3(t_v3 r0, t_v3 r1, t_v3 r2);
-t_m4	ft_make_m4(t_v4 r0, t_v4 r1, t_v4 r2, t_v4 r3);
+#define FT_Ef        ((float)FT_E)
+#define FT_LOG2Ef    ((float)FT_LOG2E)
+#define FT_LOG10Ef   ((float)FT_LOG10E)
+#define FT_LN2f      ((float)FT_LN2)
+#define FT_LN10f     ((float)FT_LN10)
+#define FT_PIf       ((float)FT_PI)
+#define FT_PI_2f     ((float)FT_PI_2)
+#define FT_PI_4f     ((float)FT_PI_4)
+#define FT_1_PIf     ((float)FT_1_PI)
+#define FT_2_PIf     ((float)FT_2_PI)
+#define FT_2_SQRTPIf ((float)FT_2_SQRTPI)
+#define FT_SQRT2f    ((float)FT_SQRT2)
+#define FT_SQRT1_2f  ((float)FT_SQRT1_2)
 
-void	ft_identity_m3(t_m3 *m);
-void	ft_identity_m4(t_m4 *m);
+void	ft_make_v3(t_v3 v, float x, float y, float z);
+void	ft_make_v4(t_v4 v, float x, float y, float z);
+void	ft_make_m3(t_m3 m, t_v3 c0, t_v3 c1, t_v3 c2);
+void	ft_make_m4(t_m4 m, t_v4 c0, t_v4 c1, t_v4 c2);
 
-void	ft_mul_v3(t_v3 *l, t_v3 *r, t_v3 *out);
-void	ft_div_v3(t_v3 *l, t_v3 *r, t_v3 *out);
-void	ft_add_v3(t_v3 *l, t_v3 *r, t_v3 *out);
-void	ft_sub_v3(t_v3 *l, t_v3 *r, t_v3 *out);
+void	ft_identity_m3(t_m3 m);
+void	ft_identity_m4(t_m4 m);
+void	ft_up_vector(t_v3 v);
+void	ft_m3_copy(t_m3 l, t_m3 out);
+void	ft_m4_copy(t_m4 l, t_m4 out);
 
-void	ft_mulvs_v3(t_v3 *l, float r, t_v3 *out);
-void	ft_divvs_v3(t_v3 *l, float r, t_v3 *out);
-void	ft_addvs_v3(t_v3 *l, float r, t_v3 *out);
-void	ft_subvs_v3(t_v3 *l, float r, t_v3 *out);
-void	ft_subsv_v3(float l, t_v3 *r, t_v3 *out);
+void	ft_mul_v3(t_v3 l, t_v3 r, t_v3 out);
+void	ft_div_v3(t_v3 l, t_v3 r, t_v3 out);
+void	ft_add_v3(t_v3 l, t_v3 r, t_v3 out);
+void	ft_sub_v3(t_v3 l, t_v3 r, t_v3 out);
 
-float	ft_dot_v3(t_v3 *l, t_v3 *r);
-void	ft_cross_v3_to(t_v3 *l, t_v3 *r, t_v3 *out);
-void	ft_lerp_v3(t_v3 *l, t_v3 *r, float t, t_v3 *out);
-float	ft_length_v3(t_v3 *l);
-void	ft_normalize_v3(t_v3 *l);
+void	ft_mulvs_v3(t_v3 l, float r, t_v3 out);
+void	ft_divvs_v3(t_v3 l, float r, t_v3 out);
+void	ft_addvs_v3(t_v3 l, float r, t_v3 out);
+void	ft_subvs_v3(t_v3 l, float r, t_v3 out);
+void	ft_subsv_v3(float l, t_v3 r, t_v3 out);
 
-void	ft_mul_v4(t_v4 *l, t_v4 *r, t_v4 *out);
-void	ft_div_v4(t_v4 *l, t_v4 *r, t_v4 *out);
-void	ft_add_v4(t_v4 *l, t_v4 *r, t_v4 *out);
-void	ft_sub_v4(t_v4 *l, t_v4 *r, t_v4 *out);
+float	ft_dot_v3(t_v3 l, t_v3 r);
+void	ft_cross_v3_to(t_v3 l, t_v3 r, t_v3 out);
+void	ft_lerp_v3(t_v3 l, t_v3 r, float t, t_v3 out);
+float	ft_length_v3(t_v3 l);
+void	ft_normalize_v3(t_v3 l);
 
-void	ft_mulvs_v4(t_v4 *l, float r, t_v4 *out);
-void	ft_divvs_v4(t_v4 *l, float r, t_v4 *out);
-void	ft_addvs_v4(t_v4 *l, float r, t_v4 *out);
-void	ft_subvs_v4(t_v4 *l, float r, t_v4 *out);
-void	ft_subsv_v4(float l, t_v4 *r, t_v4 *out);
+void	ft_mul_v4(t_v4 l, t_v4 r, t_v4 out);
+void	ft_div_v4(t_v4 l, t_v4 r, t_v4 out);
+void	ft_add_v4(t_v4 l, t_v4 r, t_v4 out);
+void	ft_sub_v4(t_v4 l, t_v4 r, t_v4 out);
 
-float	ft_dot_v4(t_v4 *l, t_v4 *r);
-void	ft_lerp_v4(t_v4 *l, t_v4 *r, float t, t_v4 *out);
-float	ft_length_v4(t_v4 *l);
-void	ft_normalize_v4(t_v4 *l);
+void	ft_mulvs_v4(t_v4 l, float r, t_v4 out);
+void	ft_divvs_v4(t_v4 l, float r, t_v4 out);
+void	ft_addvs_v4(t_v4 l, float r, t_v4 out);
+void	ft_subvs_v4(t_v4 l, float r, t_v4 out);
+void	ft_subsv_v4(float l, t_v4 r, t_v4 out);
 
-void	ft_mul_m3_to(t_m3 *l, t_m3 *r, t_m3 *out);
-void	ft_mul_vm3_to(t_v3 *l, t_m3 *r, t_v3 *out);
-void	ft_transpose_m3(t_m3 *l);
-void	ft_transpose_m3_to(t_m3 *l, t_m3 *out);
+float	ft_dot_v4(t_v4 l, t_v4 r);
+void	ft_lerp_v4(t_v4 l, t_v4 r, float t, t_v4 out);
+float	ft_length_v4(t_v4 l);
+void	ft_normalize_v4(t_v4 l);
 
-void	ft_mul_m4_to(t_m4 *l, t_m4 *r, t_m4 *out);
-void	ft_mul_m4rot_to(t_m3 *l, t_m4 *r, t_m4 *out);
-void	ft_mul_vm4_to(t_v4 *l, t_m4 *r, t_v4 *out);
-void	ft_transpose_m4(t_m4 *m);
-void	ft_transpose_m4_to(t_m4 *l, t_m4 *out);
+void	ft_mul_m3_to(t_m3 l, t_m3 r, t_m3 out);
+void	ft_mul_vm3_to(t_m3 l, t_v3 r, t_v3 out);
+void	ft_transpose_m3(t_m3 l);
+void	ft_transpose_m3_to(t_m3 l, t_m3 out);
 
-void	ft_translate_m4(t_m4 *m, t_v3 *off);
-void	ft_scale_m4(t_m4 *m, float s);
+void	ft_mul_m4_to(t_m4 l, t_m4 r, t_m4 out);
+void	ft_mul_m4rot_to(t_m4 l, t_m3 r, t_m4 out);
+void	ft_mul_vm4_to(t_m4 l, t_v4 r, t_v4 out);
+void	ft_transpose_m4(t_m4 m);
+void	ft_transpose_m4_to(t_m4 l, t_m4 out);
 
-void	ft_inv_m4_to(t_m4 *l, t_m4 *out);
-void	ft_inv_m4(t_m4 *mat);
+void	ft_translate_m4(t_m4 m, t_v3 off);
+void	ft_scale_m4(t_m4 m, float s);
+
+void	ft_inv_m4_to(t_m4 l, t_m4 out);
+void	ft_inv_m4(t_m4 mat);
 
 /*
 ** make vmath_ext; dep: vmath, math.h (cosf,sinf,sqrtf)
 */
 
-float	ft_ext_length_v3(t_v3 *l);
-void	ft_ext_normalize_v3(t_v3 *l);
-float	ft_ext_length_v4(t_v4 *l);
-void	ft_ext_normalize_v4(t_v4 *l);
+float	ft_ext_length_v3(t_v3 l);
+void	ft_ext_normalize_v3(t_v3 l);
+float	ft_ext_length_v4(t_v4 l);
+void	ft_ext_normalize_v4(t_v4 l);
 
-void	ft_make_m3rot_x(t_m3 *m, float angle);
-void	ft_make_m3rot_y(t_m3 *m, float angle);
-void	ft_make_m3rot_z(t_m3 *m, float angle);
-void	ft_make_m3rot_dir(t_m3 *m, t_v3 *dir);
+void	ft_make_m3rot_x(t_m3 m, float angle);
+void	ft_make_m3rot_y(t_m3 m, float angle);
+void	ft_make_m3rot_z(t_m3 m, float angle);
+void	ft_make_m3rot_dir(t_m3 m, t_v3 dir);
 
 /*
 ** inline;
