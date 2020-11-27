@@ -145,33 +145,33 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rc $(NAME) $?
 
-part1: $(NAME)
-part1: $(PART1_OBJ)
+part1: $(OBJ) $(PART1_OBJ)
 	ar rc $(NAME) $?
+	touch part1
 
-fd: $(NAME)
-fd: $(FD_OBJ)
+fd: $(OBJ) $(FD_OBJ)
 	ar rc $(NAME) $?
+	touch fd
 
-list: $(NAME)
-list: $(LIST_OBJ)
+list: $(OBJ) $(LIST_OBJ)
 	ar rc $(NAME) $?
+	touch list
 
-d: $(NAME)
-d: $(D_OBJ)
+d: $(OBJ) $(D_OBJ)
 	ar rc $(NAME) $?
+	touch d
 
-b: $(NAME)
-b: $(B_OBJ)
+b: $(OBJ) $(B_OBJ)
 	ar rc $(NAME) $?
+	touch b
 
-vmath: $(NAME)
-vmath: $(VMATH_OBJ)
+vmath: $(OBJ) $(VMATH_OBJ)
 	ar rc $(NAME) $?
+	touch vmath
 
-vmath_ext: $(NAME)
-vmath_ext: $(VMATH_EXT_OBJ) $(VMATH_OBJ)
+vmath_ext: $(OBJ) $(VMATH_EXT_OBJ) $(VMATH_OBJ)
 	ar rc $(NAME) $?
+	touch vmath_ext
 
 clean:
 	rm -rf $(OBJ)
@@ -182,6 +182,13 @@ clean:
 	rm -rf $(B_OBJ)
 	rm -rf $(VMATH_OBJ)
 	rm -rf $(VMATH_EXT_OBJ)
+	rm -rf part1
+	rm -rf fd
+	rm -rf list
+	rm -rf d
+	rm -rf b
+	rm -rf vmath
+	rm -rf vmath_ext
 
 fclean: clean
 	rm -rf $(NAME)
