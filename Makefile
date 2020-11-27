@@ -3,6 +3,7 @@ NAME=libft.a
 
 SRC=\
 ft_memset.c\
+ft_memset4.c\
 ft_bzero.c\
 ft_memcpy.c\
 ft_memccpy.c\
@@ -85,6 +86,7 @@ ft_dfree.c\
 ft_dainit.c\
 ft_daexpand.c\
 ft_daappend.c\
+ft_danew.c\
 ft_daremove.c\
 ft_da.c\
 ft_dafree.c\

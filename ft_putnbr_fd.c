@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsandsla <jsandsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 12:31:01 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/10/29 14:34:30 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 12:13:13 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ void			ft_putnbr_fd(int n, int fd)
 
 	len = rec_int_print(ptr, n);
 	write(fd, ptr, len);
+}
+
+void			ft_putnbr(int n)
+{
+	char	ptr[12];
+	size_t	len;
+
+	len = rec_int_print(ptr, n);
+	write(STDOUT_FILENO, ptr, len);
 }

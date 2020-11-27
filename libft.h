@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/26 16:06:52 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 12:10:55 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct	s_m4
 ** make; dep: -;
 */
 void			*ft_memset(void *s, int c, size_t n);
+void			*ft_memset4(void *s, unsigned int c, size_t count);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
 void			*ft_memccpy(void *dest, const void *src, int c, size_t n);
@@ -173,7 +174,7 @@ double			ft_sqrt(double x);
 float			ft_sqrtf(float x);
 
 /*
-** make part2; dep: malloc, free, write;
+** make part1; dep: malloc, free;
 */
 void			*ft_calloc(size_t nmemb, size_t size);
 char			*ft_strdup(const char *s);
@@ -183,10 +184,18 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+
+/*
+** make fd; dep: write
+*/
 void			ft_putchar_fd(char c, int fd);
+void			ft_putchar(char c);
 void			ft_putstr_fd(char *s, int fd);
+void			ft_putstr(char *s);
 void			ft_putendl_fd(char *s, int fd);
+void			ft_putendl(char *s);
 void			ft_putnbr_fd(int n, int fd);
+void			ft_putnbr(int n);
 
 /*
 ** make list; dep: malloc, free;
@@ -252,6 +261,7 @@ t_err			ft_dainit(t_da *da, size_t sz, void *p, size_t len);
 void			ft_dainitm(t_da *da, t_m *m);
 t_err			ft_daexpand(t_da *da, size_t required);
 t_err			ft_daappend(t_da *da, void *elems, size_t count);
+void			*ft_danew(t_da *da);
 void			ft_daremove(t_da *da, size_t i);
 void			*ft_da(t_da *da, size_t i);
 void			ft_dafree(t_da *da);

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:37:52 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/10 19:45:07 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/27 11:31:03 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_err			ft_dappend(t_d *d, t_byte *mem, size_t len)
 	{
 		if (mem)
 			ft_memcpy(m->ptr + m->len, mem, len);
+		else
+			ft_memset(m->ptr + m->len, 0, len);
 		m->len += len;
 	}
 	return (error);

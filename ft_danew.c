@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_danew.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/29 12:24:21 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 12:12:16 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/27 11:29:35 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/27 11:33:44 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd)
+void	*ft_danew(t_da *da)
 {
-	write(fd, &c, 1);
-}
+	void	*ptr;
 
-void	ft_putchar(char c)
-{
-	write(STDOUT_FILENO, &c, 1);
+	ptr = 0;
+	if (ft_daappend(da, 0, 1) == E_OK)
+		ptr = ft_da(da, da->a.m->len - 1);
+	return (ptr);
 }

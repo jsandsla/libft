@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_memset4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/29 12:24:21 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 12:12:16 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/11/27 10:58:35 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/11/27 11:00:41 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd)
+void	*ft_memset4(void *mem, unsigned int c, size_t count)
 {
-	write(fd, &c, 1);
-}
+	size_t	i;
 
-void	ft_putchar(char c)
-{
-	write(STDOUT_FILENO, &c, 1);
+	i = 0;
+	while (i < count)
+	{
+		((unsigned int *)mem)[i] = c;
+		i += 1;
+	}
+	return (mem);
 }
