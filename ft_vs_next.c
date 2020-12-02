@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:31:41 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 20:16:02 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/28 13:59:43 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ int		ft_vs_next_if_str(t_vs *vs, char *str)
 	int		success;
 
 	success = ft_vs_str(vs, str);
+	if (success)
+		ft_vs_skip_word(vs);
+	return (success);
+}
+
+int		ft_vs_next_if_word(t_vs *vs, char *str)
+{
+	int		success;
+
+	success = ft_vs_word(vs, str);
 	if (success)
 		ft_vs_skip_word(vs);
 	return (success);

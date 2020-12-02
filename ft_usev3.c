@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:43:45 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 18:00:56 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:59:39 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	ft_dot_v3(t_v3 l, t_v3 r)
 	return (result);
 }
 
-void	ft_cross_v3(t_v3 l, t_v3 r, t_v3 out)
+void	ft_cross_v3_to(t_v3 l, t_v3 r, t_v3 out)
 {
 	out[0] = l[1] * r[2] - l[2] * r[1];
 	out[1] = l[2] * r[0] - l[0] * r[2];
@@ -54,5 +54,5 @@ void	ft_normalize_v3(t_v3 l)
 	if (len > 0)
 		ft_divvs_v3(l, len, l);
 	else
-		ft_make_v3(l, 0, 0, 0);
+		ft_make_v3(0, 0, 0, l);
 }

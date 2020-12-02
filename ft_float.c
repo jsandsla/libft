@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_identity_m.c                                    :+:      :+:    :+:   */
+/*   ft_float.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:30:38 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/28 19:56:27 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/12/01 15:07:47 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/12/01 16:08:45 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_identity_m3(t_m3 m)
+float	ft_fabsf(float num)
 {
-	ft_bzero(m, sizeof(t_m3));
-	m[0][0] = 1;
-	m[1][1] = 1;
-	m[2][2] = 1;
+	t_ieee754f	u;
+
+	u.f = num;
+	u.u &= ~(1ull << 31);
+	return (u.f);
 }
 
-void	ft_identity_m4(t_m4 m)
+int		ft_epsf(float l, float epsilon)
 {
-	ft_bzero(m, sizeof(t_m4));
-	m[0][0] = 1;
-	m[1][1] = 1;
-	m[2][2] = 1;
-	m[3][3] = 1;
+	return (l <= epsilon && l >= -epsilon);
 }
 
-void	ft_up_vector(t_v3 up)
+float	ft_copysignf(float x, float y)
 {
-	up[0] = 0;
-	up[1] = 1;
-	up[2] = 0;
+	if (x < 0)
+		x = -x;
+	if (y < 0)
+		x = -x;
+	return (x);
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 12:32:12 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 13:57:19 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:57:23 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_bexpand(void *pptr, int req)
 		if (ptr)
 		{
 			ft_memcpy(nptr, ptr, ft_blen(ptr));
-			free(ptr);
+			free((int *)ptr - 2);
 		}
 		*(void **)pptr = nptr;
 		((int *)nptr)[-1] = len;

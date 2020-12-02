@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:22:31 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 15:57:39 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/28 13:53:17 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,9 @@ void			ft_vs_skip_ws(t_vs *vs)
 
 void			ft_vs_skip_word(t_vs *vs)
 {
-	char	c;
-	int		bit;
+	int	len;
 
-	c = ft_vs(vs, 0);
-	if (IS_ALPHA(c) || c == '_')
-		while ((c = ft_vs(vs, 0)) && (IS_ALPHA(c) || c == '_'))
-			ft_vs_inc(vs, 1);
-	else if (IS_DIGIT(c) || ((c == '-' || c == '+') && IS_DIGIT(ft_vs(vs, 1))))
-	{
-		bit = 4;
-		if (c == '0' && (ft_vs(vs, 1) == 'x' || ft_vs(vs, 1) == 'X'))
-		{
-			bit = 128;
-			ft_vs_inc(vs, 2);
-		}
-		if (c == '-' || c == '+')
-			ft_vs_inc(vs, 1);
-		while ((c = ft_vs(vs, 0)) && g_ctype_char_info[(unsigned char)c] & bit)
-			ft_vs_inc(vs, 1);
-	}
-	else if (ft_strchr("!@#$%^&*()-+=~/[];,.'\":`{}\\", c))
-		ft_vs_inc(vs, 1);
+	len = ft_vs_word_len(vs);
+	ft_vs_inc(vs, len);
 	ft_vs_skip_ws(vs);
 }

@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 20:15:47 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/12/02 17:28:56 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,21 @@ typedef struct	s_view_string
 
 typedef float	t_v3[3];
 typedef float	t_v4[4];
+/*
+** n x m : n - column index; m - row index;
+*/
 typedef float	t_m3[3][3];
 typedef float	t_m4[4][4];
+
+typedef float	t_quat[4];
+
+typedef struct	s_ray
+{
+	t_v3	ori;
+	t_v3	dir;
+	float	hit;
+	t_v3	hitnormal;
+}				t_ray;
 
 /*
 ** make; dep: -;
@@ -137,6 +150,12 @@ typedef union	u_ieee754
 	double		f;
 }				t_ieee754;
 
+typedef union	u_ieee754f
+{
+	uint32_t	u;
+	float		f;
+}				t_ieee754f;
+
 int				ft_isnan(double f);
 int				ft_isinf(double f);
 double			ft_fpow(double f, size_t power);
@@ -147,6 +166,12 @@ double			ft_modf_rounded(double f, double *i, size_t precision);
 double			ft_modf_erounded(double x, double *int_part, size_t precision);
 double			ft_sqrt(double x);
 float			ft_sqrtf(float x);
+
+int				ft_dtostr(char *out, int n, double d);
+
+float			ft_fabsf(float f);
+int				ft_epsf(float diff, float epsilon);
+float			ft_copysignf(float x, float y);
 
 /*
 ** make part1; dep: malloc, free;
@@ -171,6 +196,8 @@ void			ft_putendl_fd(const char *s, int fd);
 void			ft_putendl(const char *s);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putnbr(int n);
+void			ft_putfloat_fd(float n, int fd);
+void			ft_putfloat(float n);
 
 /*
 ** make list; dep: malloc, free;
@@ -279,9 +306,11 @@ t_vs			ft_vs_sub(t_vs *vs, size_t offset, size_t len);
 char			ft_vs_inc(t_vs *vs, size_t offset);
 char			ft_vs_inc_if(t_vs *vs, char c);
 char			ft_vs_inc_if_str(t_vs *vs, char *str);
+char			ft_vs_inc_if_word(t_vs *vs, char *str);
 int				ft_vs_next(t_vs *vs);
 int				ft_vs_next_if(t_vs *vs, char c);
 int				ft_vs_next_if_str(t_vs *vs, char *str);
+int				ft_vs_next_if_word(t_vs *vs, char *str);
 char			ft_vs(t_vs *vs, size_t offset);
 void			ft_vs_reset(t_vs *vs);
 size_t			ft_vs_strtou(t_vs *vs, t_uint *out, int base, const char *sym);
@@ -295,6 +324,8 @@ size_t			ft_vs_read_float(t_vs *vs, float *out);
 void			ft_vs_skip_ws(t_vs *vs);
 void			ft_vs_skip_word(t_vs *vs);
 int				ft_vs_str(t_vs *vs, const char *str);
+int				ft_vs_word_len(t_vs *vs);
+int				ft_vs_word(t_vs *vs, const char *str);
 
 # define FT_VS_SYMX "0123456789abcdef"
 # define FT_VS_SYMBIGX "0123456789ABCDEF"
@@ -322,108 +353,181 @@ t_m				ft_b_to_m(void *ptr, int sz);
 ** make vmath; dep: -
 */
 
-#define FT_E         2.71828182845904523536028747135266250
-#define FT_LOG2E     1.44269504088896340735992468100189214
-#define FT_LOG10E    0.434294481903251827651128918916605082
-#define FT_LN2       0.693147180559945309417232121458176568
-#define FT_LN10      2.30258509299404568401799145468436421
-#define FT_PI        3.14159265358979323846264338327950288
-#define FT_PI_2      1.57079632679489661923132169163975144
-#define FT_PI_4      0.785398163397448309615660845819875721
-#define FT_1_PI      0.318309886183790671537767526745028724
-#define FT_2_PI      0.636619772367581343075535053490057448
-#define FT_2_SQRTPI  1.12837916709551257389615890312154517
-#define FT_SQRT2     1.41421356237309504880168872420969808
-#define FT_SQRT1_2   0.707106781186547524400844362104849039
+# define FT_E         2.71828182845904523536028747135266250
+# define FT_LOG2E     1.44269504088896340735992468100189214
+# define FT_LOG10E    0.434294481903251827651128918916605082
+# define FT_LN2       0.693147180559945309417232121458176568
+# define FT_LN10      2.30258509299404568401799145468436421
+# define FT_PI        3.14159265358979323846264338327950288
+# define FT_PI_2      1.57079632679489661923132169163975144
+# define FT_PI_4      0.785398163397448309615660845819875721
+# define FT_1_PI      0.318309886183790671537767526745028724
+# define FT_2_PI      0.636619772367581343075535053490057448
+# define FT_2_SQRTPI  1.12837916709551257389615890312154517
+# define FT_SQRT2     1.41421356237309504880168872420969808
+# define FT_SQRT1_2   0.707106781186547524400844362104849039
 
-#define FT_Ef        ((float)FT_E)
-#define FT_LOG2Ef    ((float)FT_LOG2E)
-#define FT_LOG10Ef   ((float)FT_LOG10E)
-#define FT_LN2f      ((float)FT_LN2)
-#define FT_LN10f     ((float)FT_LN10)
-#define FT_PIf       ((float)FT_PI)
-#define FT_PI_2f     ((float)FT_PI_2)
-#define FT_PI_4f     ((float)FT_PI_4)
-#define FT_1_PIf     ((float)FT_1_PI)
-#define FT_2_PIf     ((float)FT_2_PI)
-#define FT_2_SQRTPIf ((float)FT_2_SQRTPI)
-#define FT_SQRT2f    ((float)FT_SQRT2)
-#define FT_SQRT1_2f  ((float)FT_SQRT1_2)
+# define FT_EF        ((float)FT_E)
+# define FT_LOG2EF    ((float)FT_LOG2E)
+# define FT_LOG10EF   ((float)FT_LOG10E)
+# define FT_LN2F      ((float)FT_LN2)
+# define FT_LN10F     ((float)FT_LN10)
+# define FT_PIF       ((float)FT_PI)
+# define FT_PI_2F     ((float)FT_PI_2)
+# define FT_PI_4F     ((float)FT_PI_4)
+# define FT_1_PIF     ((float)FT_1_PI)
+# define FT_2_PIF     ((float)FT_2_PI)
+# define FT_2_SQRTPIF ((float)FT_2_SQRTPI)
+# define FT_SQRT2F    ((float)FT_SQRT2)
+# define FT_SQRT1_2F  ((float)FT_SQRT1_2)
 
-void	ft_make_v3(t_v3 v, float x, float y, float z);
-void	ft_make_v4(t_v4 v, float x, float y, float z);
-void	ft_make_m3(t_m3 m, t_v3 c0, t_v3 c1, t_v3 c2);
-void	ft_make_m4(t_m4 m, t_v4 c0, t_v4 c1, t_v4 c2);
+# define FT_EPS 0.000000001
+# define FT_EPSF 0.0000001f
 
-void	ft_identity_m3(t_m3 m);
-void	ft_identity_m4(t_m4 m);
-void	ft_up_vector(t_v3 v);
-void	ft_m3_copy(t_m3 l, t_m3 out);
-void	ft_m4_copy(t_m4 l, t_m4 out);
+# define FT_RAD(DEG) ((DEG) * (FT_PI / 180.f))
+# define FT_DEG(RAD) ((RAD) * (FT_1_PI * 180.f))
 
-void	ft_mul_v3(t_v3 l, t_v3 r, t_v3 out);
-void	ft_div_v3(t_v3 l, t_v3 r, t_v3 out);
-void	ft_add_v3(t_v3 l, t_v3 r, t_v3 out);
-void	ft_sub_v3(t_v3 l, t_v3 r, t_v3 out);
+void			ft_make_v3(float x, float y, float z, t_v3 out);
+void			ft_make_v4(float x, float y, float z, t_v4 out);
+void			ft_make_m3(t_v3 c0, t_v3 c1, t_v3 c2, t_m3 out);
+void			ft_make_m4(t_v4 c0, t_v4 c1, t_v4 c2, t_m4 out);
 
-void	ft_mulvs_v3(t_v3 l, float r, t_v3 out);
-void	ft_divvs_v3(t_v3 l, float r, t_v3 out);
-void	ft_addvs_v3(t_v3 l, float r, t_v3 out);
-void	ft_subvs_v3(t_v3 l, float r, t_v3 out);
-void	ft_subsv_v3(float l, t_v3 r, t_v3 out);
+void			ft_make_m4_from_m3(t_m3 m, t_m4 out);
+void			ft_make_m3_from_m4(t_m4 m, t_m3 out);
 
-float	ft_dot_v3(t_v3 l, t_v3 r);
-void	ft_cross_v3_to(t_v3 l, t_v3 r, t_v3 out);
-void	ft_lerp_v3(t_v3 l, t_v3 r, float t, t_v3 out);
-float	ft_length_v3(t_v3 l);
-void	ft_normalize_v3(t_v3 l);
+void			ft_identity_m3(t_m3 m);
+void			ft_identity_m4(t_m4 m);
+void			ft_up_vector(t_v3 v);
 
-void	ft_mul_v4(t_v4 l, t_v4 r, t_v4 out);
-void	ft_div_v4(t_v4 l, t_v4 r, t_v4 out);
-void	ft_add_v4(t_v4 l, t_v4 r, t_v4 out);
-void	ft_sub_v4(t_v4 l, t_v4 r, t_v4 out);
+void			ft_copy_v3(t_v3 l, t_v3 out);
+void			ft_copy_v4(t_v4 l, t_v4 out);
+void			ft_copy_m3(t_m3 l, t_m3 out);
+void			ft_copy_m4(t_m4 l, t_m4 out);
 
-void	ft_mulvs_v4(t_v4 l, float r, t_v4 out);
-void	ft_divvs_v4(t_v4 l, float r, t_v4 out);
-void	ft_addvs_v4(t_v4 l, float r, t_v4 out);
-void	ft_subvs_v4(t_v4 l, float r, t_v4 out);
-void	ft_subsv_v4(float l, t_v4 r, t_v4 out);
+void			ft_mul_v3(t_v3 l, t_v3 r, t_v3 out);
+void			ft_div_v3(t_v3 l, t_v3 r, t_v3 out);
+void			ft_add_v3(t_v3 l, t_v3 r, t_v3 out);
+void			ft_sub_v3(t_v3 l, t_v3 r, t_v3 out);
 
-float	ft_dot_v4(t_v4 l, t_v4 r);
-void	ft_lerp_v4(t_v4 l, t_v4 r, float t, t_v4 out);
-float	ft_length_v4(t_v4 l);
-void	ft_normalize_v4(t_v4 l);
+void			ft_mulvs_v3(t_v3 l, float r, t_v3 out);
+void			ft_divvs_v3(t_v3 l, float r, t_v3 out);
+void			ft_addvs_v3(t_v3 l, float r, t_v3 out);
+void			ft_subvs_v3(t_v3 l, float r, t_v3 out);
+void			ft_subsv_v3(float l, t_v3 r, t_v3 out);
 
-void	ft_mul_m3_to(t_m3 l, t_m3 r, t_m3 out);
-void	ft_mul_vm3_to(t_m3 l, t_v3 r, t_v3 out);
-void	ft_transpose_m3(t_m3 l);
-void	ft_transpose_m3_to(t_m3 l, t_m3 out);
+float			ft_dot_v3(t_v3 l, t_v3 r);
+void			ft_cross_v3_to(t_v3 l, t_v3 r, t_v3 out);
+void			ft_lerp_v3(t_v3 l, t_v3 r, float t, t_v3 out);
+float			ft_length_v3(t_v3 l);
+void			ft_normalize_v3(t_v3 l);
 
-void	ft_mul_m4_to(t_m4 l, t_m4 r, t_m4 out);
-void	ft_mul_m4rot_to(t_m4 l, t_m3 r, t_m4 out);
-void	ft_mul_vm4_to(t_m4 l, t_v4 r, t_v4 out);
-void	ft_transpose_m4(t_m4 m);
-void	ft_transpose_m4_to(t_m4 l, t_m4 out);
+void			ft_mul_v4(t_v4 l, t_v4 r, t_v4 out);
+void			ft_div_v4(t_v4 l, t_v4 r, t_v4 out);
+void			ft_add_v4(t_v4 l, t_v4 r, t_v4 out);
+void			ft_sub_v4(t_v4 l, t_v4 r, t_v4 out);
 
-void	ft_translate_m4(t_m4 m, t_v3 off);
-void	ft_scale_m4(t_m4 m, float s);
+void			ft_mulvs_v4(t_v4 l, float r, t_v4 out);
+void			ft_divvs_v4(t_v4 l, float r, t_v4 out);
+void			ft_addvs_v4(t_v4 l, float r, t_v4 out);
+void			ft_subvs_v4(t_v4 l, float r, t_v4 out);
+void			ft_subsv_v4(float l, t_v4 r, t_v4 out);
 
-void	ft_inv_m4_to(t_m4 l, t_m4 out);
-void	ft_inv_m4(t_m4 mat);
+float			ft_dot_v4(t_v4 l, t_v4 r);
+void			ft_lerp_v4(t_v4 l, t_v4 r, float t, t_v4 out);
+float			ft_length_v4(t_v4 l);
+void			ft_normalize_v4(t_v4 l);
+
+void			ft_mul_add_v3(t_v3 l, t_v3 r, t_v3 add, t_v3 out);
+void			ft_mulvs_add_v3(t_v3 l, float r, t_v3 add, t_v3 out);
+void			ft_mul_add_v4(t_v4 l, t_v4 r, t_v4 add, t_v4 out);
+void			ft_mulvs_add_v4(t_v4 l, float r, t_v4 add, t_v4 out);
+
+void			ft_mul_m3_to(t_m3 l, t_m3 r, t_m3 out);
+void			ft_mul_vm3_to(t_m3 l, t_v3 r, t_v3 out);
+void			ft_mul_m3(t_m3 l, t_m3 r, t_m3 out);
+void			ft_mul_vm3(t_m3 l, t_v3 r, t_v3 out);
+
+void			ft_mul_m4_to(t_m4 l, t_m4 r, t_m4 out);
+void			ft_mul_m4rot_to(t_m4 l, t_m3 r, t_m4 out);
+void			ft_mul_vm4_to(t_m4 l, t_v4 r, t_v4 out);
+float			ft_mul_v3m4(t_m4 l, t_v3 r, float f3, t_v3 out);
+void			ft_persp_mul_v3m4(t_m4 l, t_v3 r, float f3, t_v3 out);
+
+void			ft_transpose_m3(t_m3 l);
+void			ft_transpose_m3_to(t_m3 l, t_m3 out);
+void			ft_transpose_m4(t_m4 m);
+void			ft_transpose_m4_to(t_m4 l, t_m4 out);
+
+void			ft_translate_m4(t_m4 m, t_v3 off);
+void			ft_scale_m4(t_m4 m, float s);
+
+void			ft_inv_m4_to(t_m4 l, t_m4 out);
+void			ft_inv_m4(t_m4 mat);
 
 /*
 ** make vmath_ext; dep: vmath, math.h (cosf,sinf,sqrtf)
 */
 
-float	ft_ext_length_v3(t_v3 l);
-void	ft_ext_normalize_v3(t_v3 l);
-float	ft_ext_length_v4(t_v4 l);
-void	ft_ext_normalize_v4(t_v4 l);
+float			ft_ext_length_v3(t_v3 l);
+void			ft_ext_normalize_v3(t_v3 l);
+float			ft_ext_length_v4(t_v4 l);
+void			ft_ext_normalize_v4(t_v4 l);
 
-void	ft_make_m3rot_x(t_m3 m, float angle);
-void	ft_make_m3rot_y(t_m3 m, float angle);
-void	ft_make_m3rot_z(t_m3 m, float angle);
-void	ft_make_m3rot_dir(t_m3 m, t_v3 dir);
+void			ft_make_m3rot_x(float angle, t_m3 out);
+void			ft_make_m3rot_y(float angle, t_m3 out);
+void			ft_make_m3rot_z(float angle, t_m3 out);
+void			ft_make_axis_dir(t_v3 dir, t_v3 xout, t_v3 yout, t_v3 zout);
+void			ft_make_m3rot_dir(t_v3 dir, t_m3 out);
+
+void			ft_perspective(float aspect, float far, float fov, t_m4 out);
+void			ft_lookat(t_v3 pos, t_v3 dir, t_m4 out);
+
+/*
+** make vmath_quat; dep: vmath_ext, math.h
+*/
+
+void			ft_identity_quat(t_quat q);
+void			ft_make_quat_axis(t_v3 axis, float angle, t_quat out);
+void			ft_make_quat_dir(t_v3 dir, t_v3 forward, t_v3 up, t_quat out);
+void			ft_normalize_quat_to(t_quat l, t_quat out);
+void			ft_normalize_quat(t_quat q);
+
+void			ft_conjugate_quat(t_quat q, t_quat out);
+void			ft_inverse_quat(t_quat q, t_quat out);
+float			ft_angle_quat(t_quat q);
+void			ft_axis_quat(t_quat q, t_v3 out);
+void			ft_mul_quat(t_v4 p, t_quat q, t_v4 out);
+
+float			ft_real_quat(t_quat q);
+void			ft_imag_quat(t_quat q, t_v3 out);
+void			ft_imag_normalized_quat(t_quat q, t_v3 out);
+float			ft_imag_norm_quat(t_quat q);
+
+void			ft_quat_to_m4(t_quat q, t_m4 out);
+void			ft_quat_to_m4_transposed(t_quat q, t_m4 out);
+void			ft_quat_to_m3(t_quat q, t_m4 out);
+void			ft_quat_to_m3_transposed(t_quat q, t_m4 out);
+
+void			ft_lerp_quat(t_quat l, t_quat r, float t, t_quat out);
+void			ft_slerp_quat(t_quat l, t_quat r, float t, t_quat out);
+void			ft_lookat_quat(t_v3 pos, t_quat q, t_m4 out);
+
+void			ft_rotate_qv3(t_v3 p, t_quat q, t_v3 out);
+void			ft_rotate_qm4(t_m4 m, t_quat q, t_m4 out);
+void			ft_rotate_qm4_at(t_m4 m, t_v3 pivot, t_quat q, t_m4 out);
+
+void			ft_quat_to_euler(t_quat q, t_v3 out);
+void			ft_euler_to_quat(t_v3 euler, t_quat out);
+
+/*
+** make intersection; dep: vmath, math.h
+*/
+
+int				ft_triangle_ray_test(t_v3 tr[3], t_ray *r);
+int				ft_sphere_ray_test(t_v3 pos, float radius, t_ray *r);
+int				ft_plane_ray_test(t_v3 pos, t_v3 normal, t_ray *r);
+int				ft_square_ray_test(t_v3 pos[4], t_v3 normal, t_ray *r);
+int				ft_cylinder_ray_test(t_v3 p, t_v3 nor, float rhh[2], t_ray *r);
 
 /*
 ** inline;

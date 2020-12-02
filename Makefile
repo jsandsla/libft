@@ -29,9 +29,11 @@ ft_to_powof2.c\
 ft_max.c\
 ft_min.c\
 ft_double.c\
+ft_float.c\
 ft_modf.c\
 ft_modf_rounded.c\
 ft_sqrt.c\
+ft_dtostr.c\
 ft_ctype.c
 OBJ=$(SRC:.c=.o)
 PART1_SRC=\
@@ -48,7 +50,8 @@ FD_SRC=\
 ft_putchar_fd.c\
 ft_putstr_fd.c\
 ft_putendl_fd.c\
-ft_putnbr_fd.c
+ft_putnbr_fd.c\
+ft_putfloat_fd.c
 FD_OBJ=$(FD_SRC:.c=.o)
 LIST_SRC=\
 ft_lstnew.c\
@@ -130,24 +133,50 @@ ft_usev4.c\
 ft_m3.c\
 ft_m4.c\
 ft_make_v.c\
+ft_make_mto.c\
 ft_invm4.c\
 ft_opv3.c\
 ft_opvsv3.c\
 ft_opv4.c\
 ft_opvsv4.c\
-ft_identity_m.c
+ft_identity_m.c\
+ft_muladdv.c\
+ft_transpose.c\
+ft_copy_v.c\
+ft_transform.c
 VMATH_OBJ=$(VMATH_SRC:.c=.o)
 VMATH_EXT_SRC=\
 ft_make_m3rot.c\
-ft_extv.c
+ft_extv.c\
+ft_projection.c
 VMATH_EXT_OBJ=$(VMATH_EXT_SRC:.c=.o)
+VMATH_QUAT_SRC=\
+ft_make_q.c\
+ft_usequat.c\
+ft_usequat2.c\
+ft_quat_to.c\
+ft_imag_q.c\
+ft_rotate_q.c\
+ft_euler_q.c
+VMATH_QUAT_OBJ=$(VMATH_QUAT_SRC:.c=.o)
+INTERSECTION_SRC=\
+ft_intersect_triangle.c\
+ft_intersect_sphere.c\
+ft_intersect_plane.c\
+ft_intersect_square.c\
+ft_intersect_cylinder.c
+INTERSECTION_OBJ=$(INTERSECTION_SRC:.c=.o)
 
-PARTS=part1 fd list d vs b vmath vmath_ext
+PARTS=part1 fd list d vs b vmath vmath_ext vmath_quat intersection
+FLAGS=\
+-O2\
+-Wall -Werror -Wextra\
+$(DEBUG)
 
 all: $(NAME)
 
 %.o: %.c libft.h
-	cc -Wall -Werror -Wextra -c $< -o $@ $(DEBUG)
+	cc $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $?
@@ -185,6 +214,14 @@ vmath: $(OBJ) $(VMATH_OBJ)
 vmath_ext: $(OBJ) $(VMATH_EXT_OBJ) $(VMATH_OBJ)
 	ar rc $(NAME) $?
 	touch vmath_ext
+
+vmath_quat: $(OBJ) $(VMATH_EXT_OBJ) $(VMATH_OBJ) $(VMATH_QUAT_OBJ)
+	ar rc $(NAME) $?
+	touch vmath_quat
+
+intersection: $(OBJ) $(VMATH_OBJ) $(INTERSECTION_OBJ)
+	ar rc $(NAME) $?
+	touch intersection
 
 clean:
 	rm -rf $(OBJ)

@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_identity_m.c                                    :+:      :+:    :+:   */
+/*   ft_imag_q.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:30:38 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/28 19:56:27 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/12/01 14:30:21 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/12/01 14:32:29 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
-void	ft_identity_m3(t_m3 m)
+float			ft_real_quat(t_quat q)
 {
-	ft_bzero(m, sizeof(t_m3));
-	m[0][0] = 1;
-	m[1][1] = 1;
-	m[2][2] = 1;
+	return (q[3]);
 }
 
-void	ft_identity_m4(t_m4 m)
+void			ft_imag_quat(t_quat q, t_v3 out)
 {
-	ft_bzero(m, sizeof(t_m4));
-	m[0][0] = 1;
-	m[1][1] = 1;
-	m[2][2] = 1;
-	m[3][3] = 1;
+	out[0] = q[0];
+	out[1] = q[1];
+	out[2] = q[2];
 }
 
-void	ft_up_vector(t_v3 up)
+void			ft_imag_normalized_quat(t_quat q, t_v3 out)
 {
-	up[0] = 0;
-	up[1] = 1;
-	up[2] = 0;
+	out[0] = q[0];
+	out[1] = q[1];
+	out[2] = q[2];
+	ft_ext_normalize_v3(out);
+}
+
+float			ft_imag_norm_quat(t_quat q)
+{
+	float	norm;
+
+	norm = sqrtf(ft_dot_v3(q, q));
+	return (norm);
 }

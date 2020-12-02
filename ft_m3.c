@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:57:10 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 18:10:01 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/12/01 13:04:01 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,18 @@ void	ft_mul_vm3_to(t_m3 l, t_v3 r, t_v3 out)
 	out[2] = l[0][2] * r[0] + l[1][2] * r[1] + l[2][2] * r[2];
 }
 
-void	ft_transpose_m3(t_m3 l)
+void	ft_mul_m3(t_m3 l, t_m3 r, t_m3 out)
 {
-	t_m3	t;
+	t_m3	aout;
 
-	t[0][1] = l[1][0];
-	t[0][2] = l[2][0];
-	t[1][0] = l[0][1];
-	t[1][2] = l[2][1];
-	t[2][0] = l[0][2];
-	t[2][1] = l[1][2];
-	l[0][1] = t[0][1];
-	l[0][2] = t[0][2];
-	l[1][0] = t[1][0];
-	l[1][2] = t[1][2];
-	l[2][0] = t[2][0];
-	l[2][1] = t[2][1];
+	ft_mul_m3_to(l, r, aout);
+	ft_copy_m3(aout, out);
 }
 
-void	ft_transpose_m3_to(t_m3 l, t_m3 out)
+void	ft_mul_vm3(t_m3 l, t_v3 r, t_v3 out)
 {
-	out[0][0] = l[0][0];
-	out[0][1] = l[1][0];
-	out[0][2] = l[2][0];
-	out[1][0] = l[0][1];
-	out[1][1] = l[1][1];
-	out[1][2] = l[2][1];
-	out[2][0] = l[0][2];
-	out[2][1] = l[1][2];
-	out[2][2] = l[2][2];
+	t_v3	aout;
+
+	ft_mul_vm3_to(l, r, aout);
+	ft_copy_v3(aout, out);
 }

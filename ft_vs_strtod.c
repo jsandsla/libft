@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 16:39:32 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 20:15:13 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/28 11:46:04 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static	void	exponent(t_vs *vs, double *out)
 		*out *= 10;
 		*out += (c - '0');
 		exp += 1;
+		ft_vs_inc(vs, 1);
 	}
 	if (exp)
 		*out /= ft_fpow(10.0, exp);
@@ -42,6 +43,7 @@ size_t			ft_vs_strtod(t_vs *vs, double *out)
 	{
 		*out *= 10;
 		*out += (c - '0');
+		ft_vs_inc(vs, 1);
 	}
 	if (ft_vs_inc_if(vs, '.'))
 		exponent(vs, out);

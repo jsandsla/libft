@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:26:35 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/11/27 18:04:08 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/11/30 13:00:13 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	ft_normalize_v4(t_v4 l)
 	if (len > 0)
 		ft_divvs_v4(l, len, l);
 	else
-		ft_make_v4(l, 0, 0, 0);
+		ft_make_v4(0, 0, 0, l);
 }
