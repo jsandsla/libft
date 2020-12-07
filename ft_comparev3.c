@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intersect_plane.c                               :+:      :+:    :+:   */
+/*   ft_comparev3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:12:53 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/12/03 16:00:08 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/12/03 19:21:46 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/12/03 19:22:32 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_plane_ray_test(t_v3 pos, t_v3 normal, t_ray *r)
+void			ft_max_v3(t_v3 l, t_v3 r, t_v3 out)
 {
-	float	denom;
-	t_v3	c;
-	float	hit;
+	out[0] = FT_MAX(l[0], r[0]);
+	out[1] = FT_MAX(l[1], r[1]);
+	out[2] = FT_MAX(l[2], r[2]);
+}
 
-	denom = ft_dot_v3(normal, r->dir);
-	if (denom > FT_EPSF || denom < -FT_EPSF)
-	{
-		ft_sub_v3(pos, r->ori, c);
-		hit = ft_dot_v3(c, normal) / denom;
-		if (hit > 0)
-		{
-			if (r->hit < hit)
-				return (0);
-			r->hit = hit;
-			ft_copy_v3(normal, r->hitnormal);
-			return (1);
-		}
-	}
-	return (0);
+void			ft_min_v3(t_v3 l, t_v3 r, t_v3 out)
+{
+	out[0] = FT_MIN(l[0], r[0]);
+	out[1] = FT_MIN(l[1], r[1]);
+	out[2] = FT_MIN(l[2], r[2]);
 }

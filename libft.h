@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 09:59:46 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/12/02 17:28:56 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/12/07 17:28:44 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,10 @@ typedef struct	s_ray
 {
 	t_v3	ori;
 	t_v3	dir;
+	t_v3	inv_dir;
 	float	hit;
 	t_v3	hitnormal;
+	void	*data;
 }				t_ray;
 
 /*
@@ -464,6 +466,9 @@ void			ft_scale_m4(t_m4 m, float s);
 void			ft_inv_m4_to(t_m4 l, t_m4 out);
 void			ft_inv_m4(t_m4 mat);
 
+void			ft_max_v3(t_v3 l, t_v3 r, t_v3 out);
+void			ft_min_v3(t_v3 l, t_v3 r, t_v3 out);
+
 /*
 ** make vmath_ext; dep: vmath, math.h (cosf,sinf,sqrtf)
 */
@@ -476,11 +481,8 @@ void			ft_ext_normalize_v4(t_v4 l);
 void			ft_make_m3rot_x(float angle, t_m3 out);
 void			ft_make_m3rot_y(float angle, t_m3 out);
 void			ft_make_m3rot_z(float angle, t_m3 out);
-void			ft_make_axis_dir(t_v3 dir, t_v3 xout, t_v3 yout, t_v3 zout);
-void			ft_make_m3rot_dir(t_v3 dir, t_m3 out);
 
 void			ft_perspective(float aspect, float far, float fov, t_m4 out);
-void			ft_lookat(t_v3 pos, t_v3 dir, t_m4 out);
 
 /*
 ** make vmath_quat; dep: vmath_ext, math.h
@@ -488,7 +490,7 @@ void			ft_lookat(t_v3 pos, t_v3 dir, t_m4 out);
 
 void			ft_identity_quat(t_quat q);
 void			ft_make_quat_axis(t_v3 axis, float angle, t_quat out);
-void			ft_make_quat_dir(t_v3 dir, t_v3 forward, t_v3 up, t_quat out);
+void			ft_make_quat_dir(t_v3 dir, t_quat out);
 void			ft_normalize_quat_to(t_quat l, t_quat out);
 void			ft_normalize_quat(t_quat q);
 
@@ -519,15 +521,25 @@ void			ft_rotate_qm4_at(t_m4 m, t_v3 pivot, t_quat q, t_m4 out);
 void			ft_quat_to_euler(t_quat q, t_v3 out);
 void			ft_euler_to_quat(t_v3 euler, t_quat out);
 
+void			ft_make_xangle_dir(t_v3 dir, t_v4 xangle);
+void			ft_make_xangle_axis(t_v4 xangle, t_v3 x, t_v3 y, t_v3 z);
+void			ft_make_dir_xangle(t_v4 xangle, t_v3 dir);
+void			ft_rotate_xangle(t_v4 xangle, float angle_x, float angle_y);
+void			ft_lookat_xangle(t_v3 pos, t_v4 xangle, t_m4 out);
+
 /*
-** make intersection; dep: vmath, math.h
+** make intersection; dep: vmath, vmath_quat(xangle), math.h
 */
+
+void			ft_make_ray_dir(t_v3 pos, t_v3 dir, t_ray *r);
+void			ft_make_ray_point(t_v3 pos, t_v3 end, t_ray *r);
 
 int				ft_triangle_ray_test(t_v3 tr[3], t_ray *r);
 int				ft_sphere_ray_test(t_v3 pos, float radius, t_ray *r);
 int				ft_plane_ray_test(t_v3 pos, t_v3 normal, t_ray *r);
 int				ft_square_ray_test(t_v3 pos[4], t_v3 normal, t_ray *r);
 int				ft_cylinder_ray_test(t_v3 p, t_v3 nor, float rhh[2], t_ray *r);
+int				ft_aabb_ray_test(t_v3 min, t_v3 max, t_ray *r);
 
 /*
 ** inline;

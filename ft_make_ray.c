@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intersect_plane.c                               :+:      :+:    :+:   */
+/*   ft_make_ray.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:12:53 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/12/03 16:00:08 by jsandsla         ###   ########.fr       */
+/*   Created: 2020/12/05 19:38:38 by jsandsla          #+#    #+#             */
+/*   Updated: 2020/12/05 20:03:36 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
-int		ft_plane_ray_test(t_v3 pos, t_v3 normal, t_ray *r)
+void	ft_make_ray_dir(t_v3 pos, t_v3 dir, t_ray *r)
 {
-	float	denom;
-	t_v3	c;
-	float	hit;
+	ft_copy_v3(pos, r->ori);
+	ft_copy_v3(dir, r->dir);
+	ft_ext_normalize_v3(r->dir);
+	r->inv_dir[0] = 1 / r->dir[0];
+	r->inv_dir[1] = 1 / r->dir[1];
+	r->inv_dir[2] = 1 / r->dir[2];
+	r->hit = INFINITY;
+}
 
-	denom = ft_dot_v3(normal, r->dir);
-	if (denom > FT_EPSF || denom < -FT_EPSF)
-	{
-		ft_sub_v3(pos, r->ori, c);
-		hit = ft_dot_v3(c, normal) / denom;
-		if (hit > 0)
-		{
-			if (r->hit < hit)
-				return (0);
-			r->hit = hit;
-			ft_copy_v3(normal, r->hitnormal);
-			return (1);
-		}
-	}
-	return (0);
+void	ft_make_ray_point(t_v3 pos, t_v3 end, t_ray *r)
+{
+	t_v3	dir;
+
+	ft_sub_v3(end, pos, dir);
+	ft_make_ray_dir(pos, dir, r);
 }

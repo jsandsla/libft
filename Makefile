@@ -143,7 +143,8 @@ ft_identity_m.c\
 ft_muladdv.c\
 ft_transpose.c\
 ft_copy_v.c\
-ft_transform.c
+ft_transform.c\
+ft_comparev3.c
 VMATH_OBJ=$(VMATH_SRC:.c=.o)
 VMATH_EXT_SRC=\
 ft_make_m3rot.c\
@@ -157,14 +158,17 @@ ft_usequat2.c\
 ft_quat_to.c\
 ft_imag_q.c\
 ft_rotate_q.c\
-ft_euler_q.c
+ft_euler_q.c\
+ft_xangle.c
 VMATH_QUAT_OBJ=$(VMATH_QUAT_SRC:.c=.o)
 INTERSECTION_SRC=\
+ft_make_ray.c\
 ft_intersect_triangle.c\
 ft_intersect_sphere.c\
 ft_intersect_plane.c\
 ft_intersect_square.c\
-ft_intersect_cylinder.c
+ft_intersect_cylinder.c\
+ft_intersect_aabb.c
 INTERSECTION_OBJ=$(INTERSECTION_SRC:.c=.o)
 
 PARTS=part1 fd list d vs b vmath vmath_ext vmath_quat intersection
@@ -233,6 +237,8 @@ clean:
 	rm -rf $(B_OBJ)
 	rm -rf $(VMATH_OBJ)
 	rm -rf $(VMATH_EXT_OBJ)
+	rm -rf $(VMATH_QUAT_OBJ)
+	rm -rf $(INTERSECTION_OBJ)
 	rm -rf $(PARTS)
 
 fclean: clean

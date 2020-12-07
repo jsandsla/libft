@@ -6,7 +6,7 @@
 /*   By: jsandsla <jsandsla@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 13:44:40 by jsandsla          #+#    #+#             */
-/*   Updated: 2020/12/01 19:52:34 by jsandsla         ###   ########.fr       */
+/*   Updated: 2020/12/07 17:29:15 by jsandsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,15 @@ void			ft_make_quat_axis(t_v3 axis, float angle, t_quat out)
 	out[3] = c;
 }
 
-void			ft_make_quat_dir(t_v3 dir, t_v3 forward, t_v3 up, t_quat out)
+void			ft_make_quat_dir(t_v3 dir, t_quat out)
 {
 	t_v3	axis;
 	float	dot;
 	float	angle;
 
-	dot = ft_dot_v3(dir, forward);
+	dot = ft_dot_v3(dir, (t_v3){0, 0, 1});
 	if (ft_fabs(dot + 1.f) < FT_EPSF)
-	{
-		ft_copy_v3(up, out);
-		out[3] = FT_PIF;
-		ft_normalize_quat(out);
-	}
+		ft_make_quat_axis((t_v3){0, 1, 0}, FT_PIF, out);
 	else
 	{
 		if (ft_fabs(dot - 1.f) < FT_EPSF)
@@ -59,8 +55,7 @@ void			ft_make_quat_dir(t_v3 dir, t_v3 forward, t_v3 up, t_quat out)
 		else
 		{
 			angle = acosf(dot);
-			ft_cross_v3_to(forward, dir, axis);
-			ft_ext_normalize_v3(axis);
+			ft_cross_v3_to((t_v3){0, 0, 1}, dir, axis);
 			ft_make_quat_axis(axis, angle, out);
 		}
 	}
